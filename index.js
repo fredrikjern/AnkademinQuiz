@@ -1,4 +1,4 @@
-let qNa = [
+let qNa2 = [
     {
         questions: "Vilka länder är med i EU?",
         answers: {
@@ -20,7 +20,7 @@ let qNa = [
         correctAnswer: ["2"]
     }
 ];
-let qNa2 = [
+let qNa = [
     {
         questions: "Vilka länder är med i EU?",
         answers: {
@@ -221,23 +221,33 @@ function correctTheQuiz() {
     questionContainer.innerHTML = "";
     resultOutput = [];
     savedAnswerArray.forEach((answer, questionNumber) => {
-        console.log(qNa[questionNumber].correctAnswer + " vs " + answer);
         if ((JSON.stringify(answer)) === (JSON.stringify(qNa[questionNumber].correctAnswer))) {
             score++; //score ökar med 1 vid rätt svar   
-            console.log(score + "score")
             resultOutput.push(
                 `<div class='right'>Fråga ${(questionNumber + 1)}: ${qNa[questionNumber].questions}  </div>
-                <div class ="resultAnswer">Du svarade rätt!</div>`);            
+                <div class ="resultAnswer"><b>Du svarade rätt!</b></div>`);   
+            questionContainer.innerHTML = resultOutput.join('');
             } else { 
             resultOutput.push( //Skriver ut fråga samt skapar divar för att fylla i useranswer och correct answer senare
-                `<div class='wrong'>Fråga ${(questionNumber + 1)}: ${qNa[questionNumber].questions}</div>
-                <div class ="resultAnswer">Du svarade fel!</div>
-                <div class = "resultAnswer" id = "userAnswer${questionNumber}"> Ditt svar: <br> </div>            
-                <div class = "resultAnswer" id = "correctAnswers${questionNumber}"> Rätt svar:  </div>`
-                    );
-            }                            
+                `<div class='wrong'>Fråga ${(questionNumber + 1)}: ${qNa[questionNumber].questions} Fel svar!</div>
+                <div class ="resultAnswer"> Ditt svar:  `);         
+            currUserAns =[];
+            answer.forEach((alternative) => {
+                currUserAns.push(` ${qNa[questionNumber].answers[alternative]} `)
+            });
+            resultOutput.push(currUserAns); 
+            resultOutput.push(`</div>`)
+            resultOutput.push( `<div class = "resultAnswer"> <b>Rätt svar:</b> `);
+            currCorrAns = [];
+            qNa[questionNumber].correctAnswer.forEach((alternative) => {
+                currCorrAns.push(` ${qNa[questionNumber].answers[alternative]} `)
+            });
+            resultOutput.push(currCorrAns);
+            resultOutput.push(`</div>`)
+            questionContainer.innerHTML = resultOutput.join(''); 
+            };                            
         });
-    questionContainer.innerHTML = resultOutput.join('');  
+     
 };  
 function saveCurrentAnswer() {
     let answersChecked = [];
@@ -256,26 +266,12 @@ function nextQuestion() {
     } else {
         buildQuiz(qNa[questionCounter],questionCounter);
     };
-    nextButton.style.visibility = "hidden"; 
+    ; 
 };    
-// Variables
-let score = 0;
-let savedAnswerArray = [];
-let toggleButton = document.querySelector("#toggleTheme");
-let startButton = document.querySelector("#startButton");
-let nextButton = document.querySelector("#nextButton")
-let previousButton = document.querySelector("#previousButton")
-let quizContainer =  document.querySelector("#quizContainer");
-let questionContainer = document.querySelector("#questionContainer");
-let questionCounter = 0;
-let startButtonValue = true ;
-let btnContainer = document.querySelector("#buttonContainer");
-//Eventlisteners
-toggleButton.addEventListener("click",(toggleTheme));
-startButton.addEventListener("click", () => {
+function startQuiz() {
     if (questionCounter === 0) {
-        buildQuiz(qNa[questionCounter],questionCounter);
         startButton.style.visibility='hidden';
+        buildQuiz(qNa[questionCounter],questionCounter);
         startButtonValue = false;
         startButton.textContent = "Rätta" ;
     } else if (questionCounter === (qNa.length)){
@@ -287,13 +283,34 @@ startButton.addEventListener("click", () => {
         questionCounter++;
         startButton.textContent = "Börja om" ;
     };
-    });
-nextButton.addEventListener("click", nextQuestion);
-previousButton.addEventListener("click", () => {
-    questionCounter--;
+};
+function previousQuestion() {
     startButton.style.visibility = "hidden";
+    questionCounter--;
     buildQuiz(qNa[questionCounter],questionCounter);
     if (questionCounter === 0) {
         previousButton.style.visibility = 'hidden';
-    }
-    });
+    };
+};
+// Variables
+let score = 0;
+let savedAnswerArray = [];
+let toggleButton = document.querySelector("#toggleTheme");
+let startButton = document.getElementById("startButton");
+let nextButton = document.getElementById("nextButton");
+let previousButton = document.getElementById("previousButton")
+let quizContainer =  document.querySelector("#quizContainer");
+let questionContainer = document.querySelector("#questionContainer");
+let questionCounter = 0;
+let btnContainer = document.querySelector("#buttonContainer");
+// Initial styling, hidding buttons
+nextButton.style.visibility ='hidden';
+previousButton.style.visibility ='hidden';
+//Eventlisteners
+toggleButton.addEventListener("click",(toggleTheme));
+startButton.addEventListener("click", startQuiz);
+nextButton.addEventListener("click", () => {
+    nextButton.style.visibility = "hidden"
+    nextQuestion();
+});
+previousButton.addEventListener("click", previousQuestion);
