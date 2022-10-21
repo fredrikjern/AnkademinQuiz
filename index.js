@@ -114,15 +114,24 @@ function toggleTheme() {
         theme.setAttribute('href', 'lightmode.css');
     }
 };
-function checkycheck() {
-    console.log("func checkycheck")
+function isAnswerChecked(questionCounter) {    //Körs varje gång en checkbox blir ändras, kollar om någon checkbox är ifylld, om inte visas inte "Nästa fråga knappen"
     let checkedAnswer = document.querySelectorAll(`input[type='checkbox']:checked`);
-    console.log(checkedAnswer +"checkyckeck");
-    if (checkedAnswer.length > 0) {
-        startButton.style.visibility = 'visible';
-    } else {
-        startButton.style.visibility = 'hidden';
-    };  
+    if (questionCounter < (qNa.length - 1)) {
+        console.log((questionCounter));
+        if (checkedAnswer.length > 0) {
+            nextButton.style.visibility = 'visible';
+        } else {
+            nextButton.style.visibility = 'hidden';
+        }; 
+    } else if(questionCounter === (qNa.length-1)){
+        console.log((qNa.length-1))
+        if (checkedAnswer.length > 0) {
+            startButton.style.visibility = 'visible';
+        } else {
+            startButton.style.visibility = 'hidden';
+        }; 
+    };
+   
 };
 function gradeResults(score) {
     let resultsContainer = document.querySelector("#resultsContainer");
@@ -178,7 +187,7 @@ function buildQuiz(currentQuestion, questionNumber){
     } else if(currentQuestion.type ="checkbox"){
         let checkboxes = document.querySelectorAll(`input[type='checkbox']`);
         checkboxes.forEach((box) => {
-        box.addEventListener("change", checkycheck);
+        box.addEventListener("change", isAnswerChecked);
         });
     };
 };
@@ -235,22 +244,29 @@ let previousButton = document.querySelector("#previousButton")
 let quizContainer =  document.querySelector("#quizContainer");
 let questionContainer = document.querySelector("#questionContainer");
 let questionCounter = 0;
+let startButtonValue = true ;
 let btnContainer = document.querySelector("#buttonContainer");
 //Eventlisteners
 toggleButton.addEventListener("click",(toggleTheme));
 startButton.addEventListener("click", () => {
-    buildQuiz(qNa[questionCounter],questionCounter);
-    startButton.style.visibility='hidden';
-    });
-nextButton.addEventListener("click", () => {
-    if (questionCounter === qNa.length){
+    if (startButtonValue) {
+        buildQuiz(qNa[questionCounter],questionCounter);
+        startButton.style.visibility='hidden';
+        startButtonValue = false;
+        startButton.textContent = "Rätta" ;
+    } else if (startButtonValue === false){
         questionContainer.innerHTML="<h1>Resultat<h1>";
     };
-    questionCounter++;
-    buildQuiz(qNa[questionCounter],questionCounter);
-    if (questionCounter === 1) {
-        previousButton.style.visibility = "visible";
-    }
+    });
+nextButton.addEventListener("click", () => {
+    questionCounter++;   
+    if(questionCounter === 1){
+        previousButton.style.visibility = "visible";        
+        buildQuiz(qNa[questionCounter],questionCounter);  
+    } else {
+        buildQuiz(qNa[questionCounter],questionCounter);
+    };
+    nextButton.style.visibility = "hidden"; 
     });    
 previousButton.addEventListener("click", () => {
     questionCounter--;
