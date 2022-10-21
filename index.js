@@ -1,5 +1,16 @@
 let qNa = [
     {
+        questions: "Vilka länder är med i EU?",
+        answers: {
+            1: "Sverige",
+            2: "Tyskland",
+            3: "Danmark",
+            4: "Norge"
+        },
+        type: "checkbox",
+        correctAnswer: ["1","2","3"]
+    },
+    {
         questions: "Är 1 + 1 = 5?",
         answers: {
             1: "Sant",
@@ -40,17 +51,6 @@ let qNa = [
         correctAnswer: ["1","4"]
     },
     {
-        questions: "Vilka länder är med i EU?",
-        answers: {
-            1: "Sverige",
-            2: "Tyskland",
-            3: "Danmark",
-            4: "Norge"
-        },
-        type: "checkbox",
-        correctAnswer: ["1","2","3"]
-    },
-    {
         questions: "Vem läser inte FEND22?",
         answers: {
             1: "Emelie",
@@ -60,17 +60,6 @@ let qNa = [
         },
         type: "checkbox",
         correctAnswer: ["4"]
-    },
-    {
-        questions: "Vilka färger ingår i svenska flaggan?",
-        answers: {
-            1: "Röd",
-            2: "Gul",
-            3: "Brun",
-            4: "Blå"
-        },
-        type: "checkbox",
-        correctAnswer: ["2","4"]
     },
     {
         questions: "Vad är 2*(4-2)?",
@@ -104,6 +93,17 @@ let qNa = [
         },
         type: "radio",
         correctAnswer: "2"
+    },
+    {
+        questions: "Vilka färger ingår i svenska flaggan?",
+        answers: {
+            1: "Röd",
+            2: "Gul",
+            3: "Brun",
+            4: "Blå"
+        },
+        type: "checkbox",
+        correctAnswer: ["2","4"]
     }
 ];
 // Funktioner
@@ -114,24 +114,29 @@ function toggleTheme() {
         theme.setAttribute('href', 'lightmode.css');
     }
 };
-function isAnswerChecked(questionCounter) {    //Körs varje gång en checkbox blir ändras, kollar om någon checkbox är ifylld, om inte visas inte "Nästa fråga knappen"
+function isAnswerChecked() {    //Körs varje gång en checkbox blir ändras, kollar om någon checkbox är ifylld, om inte visas inte "Nästa fråga knappen"
     let checkedAnswer = document.querySelectorAll(`input[type='checkbox']:checked`);
-    if (questionCounter < (qNa.length - 1)) {
-        console.log((questionCounter));
-        if (checkedAnswer.length > 0) {
+    console.log("funktionen" + questionCounter + ((qNa.length)-1))
+    if (questionCounter < ((qNa.length)-1)){
+        console.log("1 IF")
+        if ((checkedAnswer.length) > 0) {
+            console.log("2 IF")
+            console.log("checked > 0");
             nextButton.style.visibility = 'visible';
         } else {
+            console.log("Else")
             nextButton.style.visibility = 'hidden';
-        }; 
-    } else if(questionCounter === (qNa.length-1)){
-        console.log((qNa.length-1))
-        if (checkedAnswer.length > 0) {
+            console.log(questionCounter)
+        };
+    } else if (questionCounter === ((qNa.length)-1)){
+        
+        console.log("ELSE IF");
+        if (((checkedAnswer.length) > 0)) {
             startButton.style.visibility = 'visible';
         } else {
             startButton.style.visibility = 'hidden';
         }; 
     };
-   
 };
 function gradeResults(score) {
     let resultsContainer = document.querySelector("#resultsContainer");
@@ -275,4 +280,3 @@ previousButton.addEventListener("click", () => {
         previousButton.style.visibility = 'hidden';
     }
     });
-
