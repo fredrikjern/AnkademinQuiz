@@ -84,17 +84,6 @@ let qNa = [
         correctAnswer: "3"
     },
     {
-        questions: "Vad är 2 * 4?",
-        answers: {
-            1: "2",
-            2: "8",
-            3: "9",
-            4: "12"
-        },
-        type: "radio",
-        correctAnswer: "2"
-    },
-    {
         questions: "Vilka färger ingår i svenska flaggan?",
         answers: {
             1: "Röd",
@@ -104,6 +93,17 @@ let qNa = [
         },
         type: "checkbox",
         correctAnswer: ["2","4"]
+    },
+    {
+        questions: "Vad är 2 * 4?",
+        answers: {
+            1: "2",
+            2: "8",
+            3: "9",
+            4: "12"
+        },
+        type: "radio",
+        correctAnswer: "2"
     }
 ];
 // Funktioner
@@ -114,23 +114,15 @@ function toggleTheme() {
         theme.setAttribute('href', 'lightmode.css');
     }
 };
-function isAnswerChecked() {    //Körs varje gång en checkbox blir ändras, kollar om någon checkbox är ifylld, om inte visas inte "Nästa fråga knappen"
+function isAnswerChecked() {    //Körs varje gång en checkbox blir ändras, kollar om någon checkbox är ifylld, om inte visas inte "Nästa fråga knappen" men på sista frågan visas "Rätta" knappen
     let checkedAnswer = document.querySelectorAll(`input[type='checkbox']:checked`);
-    console.log("funktionen" + questionCounter + ((qNa.length)-1))
     if (questionCounter < ((qNa.length)-1)){
-        console.log("1 IF")
         if ((checkedAnswer.length) > 0) {
-            console.log("2 IF")
-            console.log("checked > 0");
             nextButton.style.visibility = 'visible';
         } else {
-            console.log("Else")
             nextButton.style.visibility = 'hidden';
-            console.log(questionCounter)
         };
     } else if (questionCounter === ((qNa.length)-1)){
-        
-        console.log("ELSE IF");
         if (((checkedAnswer.length) > 0)) {
             startButton.style.visibility = 'visible';
         } else {
@@ -160,7 +152,7 @@ function buildQuiz(currentQuestion, questionNumber){
         for (const i in currentQuestion.answers) { //Loopar igenom svarsalternativen'
             answers.push( //Skapar HTML radio knappar.
               `<label>
-                  <input type='radio' name="question${questionNumber}" value="${i}">
+                  <input type='radio' name="question" value="${i}">
                   ${currentQuestion.answers[i]}
              </label>`
             );
@@ -169,7 +161,7 @@ function buildQuiz(currentQuestion, questionNumber){
         for (const i in currentQuestion.answers) {
             answers.push( //Skapara HTML checkboxar för varje fråga
                 `<label>
-                    <input type='checkbox' name='question${questionNumber}' value="${i}">  
+                    <input type='checkbox' name='question' value="${i}">  
                     ${currentQuestion.answers[i]}
                 </label>`
             );
@@ -187,7 +179,14 @@ function buildQuiz(currentQuestion, questionNumber){
     if (currentQuestion.type === "radio") {
         let radios = document.querySelectorAll(`input[type='radio']`);
         radios.forEach((radios) => {
-        radios.addEventListener("change", () => {nextButton.style.visibility="visible"});
+        radios.addEventListener("change", () => {
+            if (questionCounter < ((qNa.length-1))) {
+                nextButton.style.visibility="visible"
+            } else {
+                startButton.style.visibility="visible"
+            };
+            
+        });
             });
     } else if(currentQuestion.type ="checkbox"){
         let checkboxes = document.querySelectorAll(`input[type='checkbox']`);
@@ -241,7 +240,23 @@ function gradeQuestion(currentQuestion,questionNumber) {
         };   
     };
 };
+function nextQuestion() {
+    userAnswers = document.querySelectorAll(`input[name='question']:checked`);
+    console.log(userAnswers + "User anser");
+    console.log(userAnswers.value + "User anser");
+    savedAnswerArray[questionCounter] = (userAnswers.value);
+    console.log(savedAnswerArray)
+    questionCounter++;   
+    if(questionCounter === 1){
+        previousButton.style.visibility = "visible";        
+        buildQuiz(qNa[questionCounter],questionCounter);  
+    } else {
+        buildQuiz(qNa[questionCounter],questionCounter);
+    };
+    nextButton.style.visibility = "hidden"; 
+};    
 // Variables
+let savedAnswerArray = [];
 let toggleButton = document.querySelector("#toggleTheme");
 let startButton = document.querySelector("#startButton");
 let nextButton = document.querySelector("#nextButton")
@@ -263,16 +278,7 @@ startButton.addEventListener("click", () => {
         questionContainer.innerHTML="<h1>Resultat<h1>";
     };
     });
-nextButton.addEventListener("click", () => {
-    questionCounter++;   
-    if(questionCounter === 1){
-        previousButton.style.visibility = "visible";        
-        buildQuiz(qNa[questionCounter],questionCounter);  
-    } else {
-        buildQuiz(qNa[questionCounter],questionCounter);
-    };
-    nextButton.style.visibility = "hidden"; 
-    });    
+nextButton.addEventListener("click", nextQuestion);
 previousButton.addEventListener("click", () => {
     questionCounter--;
     buildQuiz(qNa[questionCounter],questionCounter);
