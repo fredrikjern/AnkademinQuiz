@@ -17,7 +17,29 @@ let qNa = [
             2: "Falskt"
         },
         type: "radio",
-        correctAnswer: "2"
+        correctAnswer: ["2"]
+    }
+];
+let qNa2 = [
+    {
+        questions: "Vilka länder är med i EU?",
+        answers: {
+            1: "Sverige",
+            2: "Tyskland",
+            3: "Danmark",
+            4: "Norge"
+        },
+        type: "checkbox",
+        correctAnswer: ["1","2","3"]
+    },
+    {
+        questions: "Är 1 + 1 = 5?",
+        answers: {
+            1: "Sant",
+            2: "Falskt"
+        },
+        type: "radio",
+        correctAnswer: ["2"]
     },
     {
         questions: "Är 2 + 4 = 6?",
@@ -26,7 +48,7 @@ let qNa = [
             2: "Falskt"
         },
         type: "radio",
-        correctAnswer: "1"
+        correctAnswer: ["1"]
     },
     {
         questions: "Är 2 + 4 = 6?",
@@ -37,7 +59,7 @@ let qNa = [
             4: "I en annan värld"
         },
         type: "radio",
-        correctAnswer: "2"
+        correctAnswer: ["2"]
     },
     {
         questions: "Vilka djur har 4 ben?",
@@ -70,7 +92,7 @@ let qNa = [
             4: "4"
         },
         type: "radio",
-        correctAnswer: "4"
+        correctAnswer: ["4"]
     },
     {
         questions: "Vad är roten ur 9?",
@@ -81,7 +103,7 @@ let qNa = [
             4: "4"
         },
         type: "radio",
-        correctAnswer: "3"
+        correctAnswer: ["3"]
     },
     {
         questions: "Vilka färger ingår i svenska flaggan?",
@@ -103,7 +125,7 @@ let qNa = [
             4: "12"
         },
         type: "radio",
-        correctAnswer: "2"
+        correctAnswer: ["2"]
     }
 ];
 // Funktioner
@@ -152,7 +174,7 @@ function buildQuiz(currentQuestion, questionNumber){
         for (const i in currentQuestion.answers) { //Loopar igenom svarsalternativen'
             answers.push( //Skapar HTML radio knappar.
               `<label>
-                  <input type='radio' name="question" value="${i}">
+                  <input type='radio' name="questionCheckbox" value="${i}">
                   ${currentQuestion.answers[i]}
              </label>`
             );
@@ -161,7 +183,7 @@ function buildQuiz(currentQuestion, questionNumber){
         for (const i in currentQuestion.answers) {
             answers.push( //Skapara HTML checkboxar för varje fråga
                 `<label>
-                    <input type='checkbox' name='question' value="${i}">  
+                    <input type='checkbox' name='questionCheckbox' value="${i}">  
                     ${currentQuestion.answers[i]}
                 </label>`
             );
@@ -195,57 +217,38 @@ function buildQuiz(currentQuestion, questionNumber){
         });
     };
 };
-function gradeQuestion(currentQuestion,questionNumber) {
-    let answerContainer = quizContainer.querySelector('.answers');
-    let checkedAnswer = `input[name=question${questionNumber}]:checked`;
-    let userAnswer = (answerContainer.querySelector(checkedAnswer) || {}).value;        
-    let userAnswers = answerContainer.querySelectorAll(checkedAnswer);
-    let answerCheck = []; 
-    //Kollar vilken typ av fråga radio/checkbox
-    if (currentQuestion.type === "radio") {            //Kollar om svaret är rätt
-         if (userAnswer === currentQuestion.correctAnswer) {
+function correctTheQuiz() {
+    questionContainer.innerHTML = "";
+    resultOutput = [];
+    savedAnswerArray.forEach((answer, questionNumber) => {
+        console.log(qNa[questionNumber].correctAnswer + " vs " + answer);
+        if ((JSON.stringify(answer)) === (JSON.stringify(qNa[questionNumber].correctAnswer))) {
             score++; //score ökar med 1 vid rätt svar   
+            console.log(score + "score")
             resultOutput.push(
-                `  Du svarade rätt!  `);            
-            } else {
-            //Skriver ut rätt svar
-            resultOutput.push(
-                `<div class ="wrong">Inkorrekt svar :(</div>`);            
-            resultOutput.push(
-                `<div class ="resultAnswer">  Ditt svar: ${currentQuestion.answers[userAnswer]} <br>
-                Rätt svar: ${currentQuestion.answers[currentQuestion.correctAnswer]} </div>`);            
-            };
-    } else if (currentQuestion.type ==="checkbox") {          
-        userAnswers.forEach((node) => { 
-        //Loopar igenom checkade checkboxar och fyller i en array
-        answerCheck.push(`${node.value}`)
+                `<div class='right'>Fråga ${(questionNumber + 1)}: ${qNa[questionNumber].questions}  </div>
+                <div class ="resultAnswer">Du svarade rätt!</div>`);            
+            } else { 
+            resultOutput.push( //Skriver ut fråga samt skapar divar för att fylla i useranswer och correct answer senare
+                `<div class='wrong'>Fråga ${(questionNumber + 1)}: ${qNa[questionNumber].questions}</div>
+                <div class ="resultAnswer">Du svarade fel!</div>
+                <div class = "resultAnswer" id = "userAnswer${questionNumber}"> Ditt svar: <br> </div>            
+                <div class = "resultAnswer" id = "correctAnswers${questionNumber}"> Rätt svar:  </div>`
+                    );
+            }                            
         });
-        // Jämför användarens svars array mot facit-arrayn
-        if (JSON.stringify(answerCheck) === JSON.stringify(currentQuestion.correctAnswer)) {                score++; //score ökar med 1 vid rätt svar
-            resultOutput.push("Du svarade rätt!");
-        } else {
-            resultOutput.push(
-                `<div class ="wrong">Inkorrekt svar :(</div>`); 
-            resultOutput.push("Ditt svar: ");
-            answerCheck.forEach((checkedA)=> {
-                resultOutput.push(
-                    `  ${currentQuestion.answers[checkedA]}, `);
-            });    
-            resultOutput.push("<br>Rätt svar: ");
-            // Loopar igenom correctAnswer arrayen och skriver ut rätt svar    
-            currentQuestion.correctAnswer.forEach((correctAnswer)=> {
-                resultOutput.push(
-                    `  ${currentQuestion.answers[correctAnswer]}, `);
-            });            
-        };   
-    };
-};
+    questionContainer.innerHTML = resultOutput.join('');  
+};  
+function saveCurrentAnswer() {
+    let answersChecked = [];
+    userAnswers = document.querySelectorAll(`input[name='questionCheckbox']:checked`);
+    userAnswers.forEach((node) => { //Loopar igenom ickeckade-inputs och fyller i en array
+        answersChecked.push(`${node.value}`)
+        });
+    savedAnswerArray[questionCounter] = answersChecked;
+}
 function nextQuestion() {
-    userAnswers = document.querySelectorAll(`input[name='question']:checked`);
-    console.log(userAnswers + "User anser");
-    console.log(userAnswers.value + "User anser");
-    savedAnswerArray[questionCounter] = (userAnswers.value);
-    console.log(savedAnswerArray)
+    saveCurrentAnswer();
     questionCounter++;   
     if(questionCounter === 1){
         previousButton.style.visibility = "visible";        
@@ -256,6 +259,7 @@ function nextQuestion() {
     nextButton.style.visibility = "hidden"; 
 };    
 // Variables
+let score = 0;
 let savedAnswerArray = [];
 let toggleButton = document.querySelector("#toggleTheme");
 let startButton = document.querySelector("#startButton");
@@ -269,18 +273,25 @@ let btnContainer = document.querySelector("#buttonContainer");
 //Eventlisteners
 toggleButton.addEventListener("click",(toggleTheme));
 startButton.addEventListener("click", () => {
-    if (startButtonValue) {
+    if (questionCounter === 0) {
         buildQuiz(qNa[questionCounter],questionCounter);
         startButton.style.visibility='hidden';
         startButtonValue = false;
         startButton.textContent = "Rätta" ;
-    } else if (startButtonValue === false){
-        questionContainer.innerHTML="<h1>Resultat<h1>";
+    } else if (questionCounter === (qNa.length)){
+        location.reload();
+    } else {
+        saveCurrentAnswer();
+        correctTheQuiz();
+        previousButton.style.visibility="hidden";
+        questionCounter++;
+        startButton.textContent = "Börja om" ;
     };
     });
 nextButton.addEventListener("click", nextQuestion);
 previousButton.addEventListener("click", () => {
     questionCounter--;
+    startButton.style.visibility = "hidden";
     buildQuiz(qNa[questionCounter],questionCounter);
     if (questionCounter === 0) {
         previousButton.style.visibility = 'hidden';

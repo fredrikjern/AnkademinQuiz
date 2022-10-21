@@ -1,46 +1,108 @@
-function buildQuiz(currentQuestion, questionNumber){ 
-    //Jag vill att buildQuiz bygger en fråga i taget
-    //questionContainer.innerHTML = "";
-    
-    let resultOutput = []; // Variabel för att spara alla frågor och presentera på en resultatsida
-    let output = []; // Variabel för slutgiltig HTMLoutput 
-    let answers = []; // Variabel med HTML för svarsalternativen
-    // Vilken typ av fråga
-    if (currentQuestion.type === "radio") {
-        //let answerCounter = 1;
-        console.log("if radio");
-        //Loopar igenom svarsalternativen'
-        for (const i in currentQuestion.answers) {
-            console.log(i)
-            answers.push( //Skapar HTML radio knappar.
-              `<label>
-                  <input type="radio" name="question${questionNumber}" value="${i}">
-                  ${currentQuestion.answers[i]}
-             </label>`
-            );
-        };    
-            //answerCounter++;
-     } else if (currentQuestion.type === "checkbox") {
-        console.log("checkbixß");
-        //(Fyra svarsalternativ varav ett rätt svar)
-        for(let i = 0; i < currentQuestion.answers.length; i++ ) {
-            
-        };
-        for (const i in currentQuestion.answers) {
-            answers.push( //Skapara HTML checkboxar för varje fråga
-                `<label>
-                    <input type="checkbox" name="question${questionNumber}" value="${i}">  
-                    ${currentQuestion.answers[i]}
-                </label>`
-            );
-        };    
-    };
-    output.push(
-        `<div class="question" id="${questionNumber}">
-        <h5> Fråga ${(questionNumber+1)}:</h5>
-        ${currentQuestion.questions} </div>
-        <div class="answers"> ${answers.join('')} </div>`
-    );
-    resultOutput.push(output);
-    questionContainer.innerHTML = output.join('');
-};
+let qNa = [
+    {
+        questions: "Vilka länder är med i EU?",
+        answers: {
+            1: "Sverige",
+            2: "Tyskland",
+            3: "Danmark",
+            4: "Norge"
+        },
+        type: "checkbox",
+        correctAnswer: ["1","2","3"]
+    },
+    {
+        questions: "Är 1 + 1 = 5?",
+        answers: {
+            1: "Sant",
+            2: "Falskt"
+        },
+        type: "radio",
+        correctAnswer: "2"
+    },
+    {
+        questions: "Är 2 + 4 = 6?",
+        answers: {
+            1: "Sant",
+            2: "Falskt"
+        },
+        type: "radio",
+        correctAnswer: "1"
+    },
+    {
+        questions: "Är 2 + 4 = 6?",
+        answers: {
+            1: "Falskt",
+            2: "Sant",
+            3: "Kanske",
+            4: "I en annan värld"
+        },
+        type: "radio",
+        correctAnswer: "2"
+    },
+    {
+        questions: "Vilka djur har 4 ben?",
+        answers: {
+            1: "Hästar",
+            2: "Ormar",
+            3: "Människor",
+            4: "Hundar"
+        },
+        type: "checkbox",
+        correctAnswer: ["1","4"]
+    },
+    {
+        questions: "Vem läser inte FEND22?",
+        answers: {
+            1: "Emelie",
+            2: "Tobias",
+            3: "Sofia",
+            4: "Arne Anka"
+        },
+        type: "checkbox",
+        correctAnswer: ["4"]
+    },
+    {
+        questions: "Vad är 2*(4-2)?",
+        answers: {
+            1: "1",
+            2: "6",
+            3: "18",
+            4: "4"
+        },
+        type: "radio",
+        correctAnswer: "4"
+    },
+    {
+        questions: "Vad är roten ur 9?",
+        answers: {
+            1: "2",
+            2: "5",
+            3: "3",
+            4: "4"
+        },
+        type: "radio",
+        correctAnswer: "3"
+    },
+    {
+        questions: "Vilka färger ingår i svenska flaggan?",
+        answers: {
+            1: "Röd",
+            2: "Gul",
+            3: "Brun",
+            4: "Blå"
+        },
+        type: "checkbox",
+        correctAnswer: ["2","4"]
+    },
+    {
+        questions: "Vad är 2 * 4?",
+        answers: {
+            1: "2",
+            2: "8",
+            3: "9",
+            4: "12"
+        },
+        type: "radio",
+        correctAnswer: "2"
+    }
+];
