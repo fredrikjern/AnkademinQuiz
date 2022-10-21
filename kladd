@@ -1,0 +1,46 @@
+function buildQuiz(currentQuestion, questionNumber){ 
+    //Jag vill att buildQuiz bygger en fråga i taget
+    //questionContainer.innerHTML = "";
+    
+    let resultOutput = []; // Variabel för att spara alla frågor och presentera på en resultatsida
+    let output = []; // Variabel för slutgiltig HTMLoutput 
+    let answers = []; // Variabel med HTML för svarsalternativen
+    // Vilken typ av fråga
+    if (currentQuestion.type === "radio") {
+        //let answerCounter = 1;
+        console.log("if radio");
+        //Loopar igenom svarsalternativen'
+        for (const i in currentQuestion.answers) {
+            console.log(i)
+            answers.push( //Skapar HTML radio knappar.
+              `<label>
+                  <input type="radio" name="question${questionNumber}" value="${i}">
+                  ${currentQuestion.answers[i]}
+             </label>`
+            );
+        };    
+            //answerCounter++;
+     } else if (currentQuestion.type === "checkbox") {
+        console.log("checkbixß");
+        //(Fyra svarsalternativ varav ett rätt svar)
+        for(let i = 0; i < currentQuestion.answers.length; i++ ) {
+            
+        };
+        for (const i in currentQuestion.answers) {
+            answers.push( //Skapara HTML checkboxar för varje fråga
+                `<label>
+                    <input type="checkbox" name="question${questionNumber}" value="${i}">  
+                    ${currentQuestion.answers[i]}
+                </label>`
+            );
+        };    
+    };
+    output.push(
+        `<div class="question" id="${questionNumber}">
+        <h5> Fråga ${(questionNumber+1)}:</h5>
+        ${currentQuestion.questions} </div>
+        <div class="answers"> ${answers.join('')} </div>`
+    );
+    resultOutput.push(output);
+    questionContainer.innerHTML = output.join('');
+};
