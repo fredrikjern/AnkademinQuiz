@@ -9,7 +9,7 @@ body {
     font-family: Helvetica, sans-serif, Verdana, sans-serif;
     font-size: small;
     text-align: left;
-    width: 70%;
+    width: 50%;
     border: 12px solid rgb(255, 255, 255);
     padding: 0px;
     border-radius: none;
@@ -69,12 +69,24 @@ body {
     padding: 10px;
     border-radius: none;
   }
+  .darkText{
+    background-color:rgb(209, 209, 209);
+    color: rgb(0, 0, 0);
+    margin: auto;
+    font-family: Helvetica, sans-serif, Verdana, sans-serif;
+    font-size: small;
+    outline-style: none;
+    text-align: right;
+    border: none;
+    padding-top: 20px;
+    border-radius: none;
+  }
   .question {
     color: black;
     margin-left: 20px;
     outline-style: none;
     border: none;
-    padding: none;
+    padding: 10px;
     font-size: 18px;
     margin: 10px;
   }
@@ -95,6 +107,7 @@ body {
     border: none;
     padding: none;
     border-radius: none;
+    padding-top: 10px;
   }
   .right{
     color: rgb(24, 104, 0);
@@ -104,7 +117,8 @@ body {
     outline-style: none;
     text-align: left;
     border: none;
-    padding: none;
+    padding: 0px;
+    padding-top: 10px;
     border-radius: none;
   }
   .resultAnswer{
@@ -152,7 +166,7 @@ body {
     color: rgb(18, 18, 26);
     margin-left: 20px;
     font-family: Helvetica, sans-serif, Verdana, sans-serif;
-    font-size: larger;
+    font-size: 15px;
   }
   /* Knappar */
   .quizButton {

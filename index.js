@@ -1,4 +1,4 @@
-let qNa = [
+let qNa2 = [
     {
         questions: "Vilka länder är med i EU?",
         answers: {
@@ -20,7 +20,7 @@ let qNa = [
         correctAnswer: ["2"]
     }
 ];
-let qNa2 = [
+let qNa = [
     {
         questions: "Vilka länder är med i EU?",
         answers: {
@@ -316,4 +316,4 @@ nextButton.addEventListener("click", () => {
 previousButton.addEventListener("click", previousQuestion);
 
 //Ta bort
-startQuiz();
+//startQuiz();
