@@ -1,4 +1,4 @@
-let qNa2 = [
+let qNa = [
     {
         questions: "Vilka länder är med i EU?",
         answers: {
@@ -20,7 +20,7 @@ let qNa2 = [
         correctAnswer: ["2"]
     }
 ];
-let qNa = [
+let qNa2 = [
     {
         questions: "Vilka länder är med i EU?",
         answers: {
@@ -153,21 +153,21 @@ function isAnswerChecked() {    //Körs varje gång en checkbox blir ändras, ko
     };
 };
 function gradeResults(score) {
-    let resultsContainer = document.querySelector("#resultsContainer");
-    
+    console.log("Inne i gradfunc " + score)
+    let gradeContainer = document.querySelector("#grade");
     if ((score/qNa.length) < 0.5) {
-        resultsContainer.innerHTML = `Tyvärr fick du underkänt :( Din poäng: ${score} av ${qNa.length}`;
-        resultsContainer.style.color = "red"
+        gradeContainer.innerHTML = `Tyvärr fick du underkänt :( Din poäng: ${score} av ${qNa.length}`;
+        gradeContainer.style.color = "red"
     } else if ((score/qNa.length) > 0.75) {
-        resultsContainer.innerHTML = `MVG! :D Din poäng: ${score} av ${qNa.length}`;
-        resultsContainer.style.color = "green"      
+        gradeContainer.innerHTML = `MVG! :D Din poäng: ${score} av ${qNa.length}`;
+        gradeContainer.style.color = "green"      
     } else {
-        resultsContainer.innerHTML = `VG! :) Din poäng: ${score} av ${qNa.length}`;
-        resultsContainer.style.color = "orange";
+        gradeContainer.innerHTML = `VG! :) Din poäng: ${score} av ${qNa.length}`;
+        gradeContainer.style.color = "orange";
     };
 };
-function buildQuiz(currentQuestion, questionNumber){ 
-    questionContainer.innerHTML = "";
+function buildQuiz(currentQuestion, questionNumber){ //Bygger quizzet i quizContainer, fråga för fråga
+    quizContainer.innerHTML = "";
     let output = []; // Variabel för slutgiltig HTMLoutput 
     let answers = []; // Variabel med HTML för svarsalternativen
     if (currentQuestion.type === "radio") {// Vilken typ av fråga
@@ -196,7 +196,7 @@ function buildQuiz(currentQuestion, questionNumber){
         <div class="answers"> ${answers.join('')} </div>`
     );  
     //Presenterar i DOM:en
-    questionContainer.innerHTML = output.join('');
+    quizContainer.innerHTML = output.join('');
     // Visa/göm  eventlisteners       
     if (currentQuestion.type === "radio") {
         let radios = document.querySelectorAll(`input[type='radio']`);
@@ -218,15 +218,16 @@ function buildQuiz(currentQuestion, questionNumber){
     };
 };
 function correctTheQuiz() {
-    questionContainer.innerHTML = "";
+    quizContainer.innerHTML = "";
     resultOutput = [];
+    resultOutput.push(`<div class='grade' id="grade"> HEJ</div>`);
     savedAnswerArray.forEach((answer, questionNumber) => {
         if ((JSON.stringify(answer)) === (JSON.stringify(qNa[questionNumber].correctAnswer))) {
             score++; //score ökar med 1 vid rätt svar   
             resultOutput.push(
                 `<div class='right'>Fråga ${(questionNumber + 1)}: ${qNa[questionNumber].questions}  </div>
                 <div class ="resultAnswer"><b>Du svarade rätt!</b></div>`);   
-            questionContainer.innerHTML = resultOutput.join('');
+            quizContainer.innerHTML = resultOutput.join('');
             } else { 
             resultOutput.push( //Skriver ut fråga samt skapar divar för att fylla i useranswer och correct answer senare
                 `<div class='wrong'>Fråga ${(questionNumber + 1)}: ${qNa[questionNumber].questions} Fel svar!</div>
@@ -244,12 +245,13 @@ function correctTheQuiz() {
             });
             resultOutput.push(currCorrAns);
             resultOutput.push(`</div>`)
-            questionContainer.innerHTML = resultOutput.join(''); 
+            quizContainer.innerHTML = resultOutput.join(''); 
             };                            
-        });
-     
+    });
+    console.log(score);
+    gradeResults(score); // Skapar G/VG/MVG
 };  
-function saveCurrentAnswer() {
+function saveCurrentAnswer() { // Sparar svaret på nuvarandra fråga i en Array
     let answersChecked = [];
     userAnswers = document.querySelectorAll(`input[name='questionCheckbox']:checked`);
     userAnswers.forEach((node) => { //Loopar igenom ickeckade-inputs och fyller i en array
@@ -257,7 +259,7 @@ function saveCurrentAnswer() {
         });
     savedAnswerArray[questionCounter] = answersChecked;
 }
-function nextQuestion() {
+function nextQuestion() { // Byter fråga i DOM:en
     saveCurrentAnswer();
     questionCounter++;   
     if(questionCounter === 1){
@@ -268,11 +270,10 @@ function nextQuestion() {
     };
     ; 
 };    
-function startQuiz() {
+function startQuiz() { // Startar Quizzet
     if (questionCounter === 0) {
         startButton.style.visibility='hidden';
         buildQuiz(qNa[questionCounter],questionCounter);
-        startButtonValue = false;
         startButton.textContent = "Rätta" ;
     } else if (questionCounter === (qNa.length)){
         location.reload();
@@ -284,7 +285,7 @@ function startQuiz() {
         startButton.textContent = "Börja om" ;
     };
 };
-function previousQuestion() {
+function previousQuestion() { // Byter till tidigare fråga.. vore fint att få in att gamla alternativen är ifyllda?
     startButton.style.visibility = "hidden";
     questionCounter--;
     buildQuiz(qNa[questionCounter],questionCounter);
@@ -293,14 +294,13 @@ function previousQuestion() {
     };
 };
 // Variables
-let score = 0;
+let score = 0; 
 let savedAnswerArray = [];
 let toggleButton = document.querySelector("#toggleTheme");
 let startButton = document.getElementById("startButton");
 let nextButton = document.getElementById("nextButton");
 let previousButton = document.getElementById("previousButton")
 let quizContainer =  document.querySelector("#quizContainer");
-let questionContainer = document.querySelector("#questionContainer");
 let questionCounter = 0;
 let btnContainer = document.querySelector("#buttonContainer");
 // Initial styling, hidding buttons
@@ -314,3 +314,6 @@ nextButton.addEventListener("click", () => {
     nextQuestion();
 });
 previousButton.addEventListener("click", previousQuestion);
+
+//Ta bort
+startQuiz();
