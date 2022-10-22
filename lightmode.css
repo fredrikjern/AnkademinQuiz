@@ -163,7 +163,6 @@ body {
   .quizButton:hover {
     background-color: rgb(230, 170, 86); 
     color: white;
-    transition-duration: 0.2s; 
   }
 /* Checkboxar */
 :root {

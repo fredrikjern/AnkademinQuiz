@@ -173,7 +173,6 @@ p {
 .quizButton:hover {
   background-color: rgb(117, 75, 35); 
   color: white;
-  transition-duration: 0.2s; 
 }
 /* Checkboxar */
 :root {
