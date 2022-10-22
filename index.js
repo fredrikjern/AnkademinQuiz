@@ -172,7 +172,7 @@ function buildQuiz(currentQuestion, questionNumber){ //Bygger quizzet i quizCont
     if (currentQuestion.type === "radio") {// Vilken typ av fråga
         for (const i in currentQuestion.answers) { //Loopar igenom svarsalternativen'
             answers.push( //Skapar HTML radio knappar.
-              `<label>
+              `<label class="form-control-radio">
                   <input type='radio' name="questionCheckbox" value="${i}">
                   ${currentQuestion.answers[i]}
              </label>`
@@ -181,7 +181,7 @@ function buildQuiz(currentQuestion, questionNumber){ //Bygger quizzet i quizCont
      } else if (currentQuestion.type === "checkbox") {//(Fyra svarsalternativ varav ett rätt svar) 
         for (const i in currentQuestion.answers) {
             answers.push( //Skapara HTML checkboxar för varje fråga
-                `<label>
+                `<label class="form-control-check">
                     <input type='checkbox' name='questionCheckbox' value="${i}">  
                     ${currentQuestion.answers[i]}
                 </label>`

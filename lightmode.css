@@ -1,5 +1,6 @@
 body {
     background-color: rgb(209, 209, 209);
+    margin: 0px;
   }
   /* divs */
   div {
@@ -46,17 +47,6 @@ body {
     padding: 10px;
     border-radius: none;
   }
-  .questionContainer{
-    color: rgb(0, 0, 0);
-    margin: auto;
-    font-family: Helvetica, sans-serif, Verdana, sans-serif;
-    font-size: small;
-    outline-style: none;
-    text-align: center;
-    border: 12px solid rgb(255, 255, 255);
-    padding: 10px;
-    border-radius: none;
-  }
   .dark{
     background-color:rgb(209, 209, 209);
     color: rgb(0, 0, 0);
@@ -67,18 +57,6 @@ body {
     text-align: right;
     border: none;
     padding: 10px;
-    border-radius: none;
-  }
-  .darkText{
-    background-color:rgb(209, 209, 209);
-    color: rgb(0, 0, 0);
-    margin: auto;
-    font-family: Helvetica, sans-serif, Verdana, sans-serif;
-    font-size: small;
-    outline-style: none;
-    text-align: right;
-    border: none;
-    padding-top: 20px;
     border-radius: none;
   }
   .question {
@@ -95,7 +73,7 @@ body {
     padding: 10px;
     outline-style: none;
     border: none;
-    padding: none;
+    padding-left: 20px;
     margin: 10px;
   }
   .wrong {
@@ -218,17 +196,16 @@ form {
   min-height: 100vh;
 }
 
-.form-control {
-  font-family: system-ui, sans-serif;
-  font-size: 2rem;
-  font-weight: bold;
+.form-control-check {
+  font-family: inherit, sans-serif;
+  font-size: 15px;
   line-height: 1.1;
   display: grid;
   grid-template-columns: 1em auto;
   gap: 0.5em;
 }
 
-.form-control + .form-control {
+.form-control-check + .form-control-check {
   margin-top: 1em;
 }
 
@@ -248,10 +225,10 @@ input[type="checkbox"] {
   margin: 0;
 
   font: inherit;
-  color: currentColor;
+  color: rgb(165, 105, 49);
   width: 1.15em;
   height: 1.15em;
-  border: 0.15em solid currentColor;
+  border: 0.15em solid black;
   border-radius: 0.15em;
   transform: translateY(-1.075em);
   transform: translateX(-0.475em);
@@ -292,31 +269,20 @@ input[type="checkbox"]:focus {
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-}
-
-form {
-  display: grid;
-  place-content: center;
-  min-height: 100vh;
-}
-
-.form-control {
+.form-control-radio {
   font-family: inherit, sans-serif;
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 17px;
   line-height: 1.1;
   display: grid;
   grid-template-columns: 1em auto;
   gap: 0.5em;
 }
 
-.form-control + .form-control {
+.form-control-radio + .form-control-radio {
   margin-top: 1em;
 }
 
-.form-control:focus-within {
+.form-control-radio:focus-within {
   color: var(--form-control-color);
 }
 
@@ -331,7 +297,7 @@ input[type="radio"] {
   margin: 0;
 
   font: inherit;
-  color: currentColor;
+  color: black;
   width: 1.15em;
   height: 1.15em;
   border: 0.15em solid currentColor;
@@ -359,7 +325,7 @@ input[type="radio"]:checked::before {
 }
 
 input[type="radio"]:focus {
-  outline: max(2px, 0.15em) solid currentColor;
+  outline: max(1px, 0.15em) solid currentColor;
   outline-offset: max(2px, 0.15em);
 }
   /* The switch - the box around the slider */
@@ -368,6 +334,12 @@ input[type="radio"]:focus {
     display: inline-block;
     width: 60px;
     height: 34px;
+    transform: translateY(-0.825em);
+    font-family: inherit, sans-serif;
+    font-size: 17px;
+    line-height: 1.1;
+    grid-template-columns: 1em auto;
+    gap: 0.5em;
   }
   
   /* Hide default HTML checkbox */
@@ -387,8 +359,9 @@ input[type="radio"]:focus {
     right: 0;
     bottom: 0;
     background-color: rgba(255, 255, 255, 0.706);
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: .3s;
+    transition: .3s;
+  
   }
   .slider:hover {
     background-color: rgb(230, 170, 86); 
