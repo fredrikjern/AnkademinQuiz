@@ -1,4 +1,4 @@
-let qNa = [
+let qNa2 = [
     {
         questions: "Är 1 + 1 = 5?",
         answers: {
@@ -19,7 +19,7 @@ let qNa = [
         correctAnswer: ["1","2","3"]
     }
 ];
-let qNa2 = [
+let qNa = [
     {
         questions: "Vilka länder är med i EU?",
         answers: {
@@ -136,7 +136,7 @@ function toggleTheme() {
     }
 };
 function isAnswerChecked() {    //Körs varje gång en checkbox blir ändras, kollar om någon checkbox är ifylld, om inte visas inte "Nästa fråga knappen" men på sista frågan visas "Rätta" knappen
-    let checkedAnswer = document.querySelectorAll(`input[type='checkbox']:checked`);
+    let checkedAnswer = quizContainer.querySelectorAll(`input[type='checkbox']:checked`);
     if (questionCounter < ((qNa.length)-1)){
         if ((checkedAnswer.length) > 0) {
             nextButton.style.visibility = 'visible';
@@ -313,6 +313,7 @@ nextButton.addEventListener("click", () => {
     nextQuestion();
 });
 previousButton.addEventListener("click", previousQuestion);
-
+previousButton.style.visibility='hidden'
+nextButton.style.visibility='hidden'
 //Ta bort
 //startQuiz();

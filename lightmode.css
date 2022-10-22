@@ -157,22 +157,13 @@ body {
     display: inline-block;
     font-size: 16px;
     margin: auto;
-    border-radius: 5px;
+    border-radius: 4px;
     
   }
   .quizButton:hover {
     background-color: rgb(230, 170, 86); 
     color: white;
     transition-duration: 0.2s; 
-  }
-  .startButton {
-    visibility: visible;
-  }
-  .previousButton {
-    visibility: hidden;         
-  }
-  .nextButton {
-    visibility: hidden;       
   }
 /* Checkboxar */
 :root {
@@ -185,19 +176,8 @@ body {
 *:after {
   box-sizing: border-box;
 }
-
-body {
-  margin: 0;
-}
-
-form {
-  display: grid;
-  place-content: center;
-  min-height: 100vh;
-}
-
 .form-control-check {
-  font-family: inherit, sans-serif;
+  font-family: system-ui, sans-serif;
   font-size: 15px;
   line-height: 1.1;
   display: grid;
@@ -302,8 +282,7 @@ input[type="radio"] {
   height: 1.15em;
   border: 0.15em solid currentColor;
   border-radius: 50%;
-  transform: translateY(-.075em);
-
+  transform: translateY(-0.075em);
   display: grid;
   place-content: center;
 }
