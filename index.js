@@ -198,7 +198,7 @@ function buildQuiz(currentQuestion, questionNumber){ //Bygger quizzet i quizCont
     quizContainer.innerHTML = output.join('');
     // Visa/göm  eventlisteners       
     if (currentQuestion.type === "radio") {
-        let radios = document.querySelectorAll(`input[type='radio']`);
+        let radios = quizContainer.querySelectorAll(`input[type='radio']`);
         radios.forEach((radios) => {
         radios.addEventListener("change", () => {
             if (questionCounter < ((qNa.length-1))) {
@@ -210,7 +210,7 @@ function buildQuiz(currentQuestion, questionNumber){ //Bygger quizzet i quizCont
         });
             });
     } else if(currentQuestion.type ="checkbox"){
-        let checkboxes = document.querySelectorAll(`input[type='checkbox']`);
+        let checkboxes = quizContainer.querySelectorAll(`input[type='checkbox']`);
         checkboxes.forEach((box) => {
         box.addEventListener("change", isAnswerChecked);
         });
