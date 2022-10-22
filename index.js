@@ -128,7 +128,7 @@ let qNa = [
     }
 ];
 // Funktioner
-function toggleTheme() {
+function toggleTheme() { // Byter ut CSS filen i index.html
     if (theme.getAttribute('href') == 'lightmode.css') {
         theme.setAttribute('href', 'darkmode.css');
     } else {
@@ -151,8 +151,7 @@ function isAnswerChecked() {    //Körs varje gång en checkbox blir ändras, ko
         }; 
     };
 };
-function gradeResults(score) {
-    console.log("Inne i gradfunc " + score)
+function gradeResults(score) { // Graderar utifrån variabeln score, printar sen ut i DOM:en
     let gradeContainer = document.querySelector("#grade");
     if ((score/qNa.length) < 0.5) {
         gradeContainer.innerHTML = `Tyvärr fick du underkänt :( Din poäng: ${score} av ${qNa.length}`;
@@ -165,15 +164,15 @@ function gradeResults(score) {
         gradeContainer.style.color = "orange";
     };
 };
-function buildQuiz(currentQuestion, questionNumber){ //Bygger quizzet i quizContainer, fråga för fråga
-    quizContainer.innerHTML = "";
-    let output = []; // Variabel för slutgiltig HTMLoutput 
-    let answers = []; // Variabel med HTML för svarsalternativen
-    if (currentQuestion.type === "radio") {// Vilken typ av fråga
+function buildQuiz(currentQuestion, questionNumber){ //Bygger en Quiz-fråga i #quizContainer, quizCounter bestämmer vilken
+    quizContainer.innerHTML = ""; // Tömmer quizContainern
+    let output = []; // Variabel för slutgiltig HTMLoutput för nuvarande fråga
+    let answers = []; // Variabel med HTML för frågans svarsalternative
+    if (currentQuestion.type === "radio") {// Avgör vilken typ av fråga det är.
         for (const i in currentQuestion.answers) { //Loopar igenom svarsalternativen'
             answers.push( //Skapar HTML radio knappar.
               `<label class="form-control-radio">
-                  <input type='radio' name="questionCheckbox" value="${i}">
+                  <input type='radio' name="questionCheckbox" value="${i}" id='radio${i}'>
                   ${currentQuestion.answers[i]}
              </label>`
             );
@@ -182,7 +181,7 @@ function buildQuiz(currentQuestion, questionNumber){ //Bygger quizzet i quizCont
         for (const i in currentQuestion.answers) {
             answers.push( //Skapara HTML checkboxar för varje fråga
                 `<label class="form-control-check">
-                    <input type='checkbox' name='questionCheckbox' value="${i}">  
+                    <input type='checkbox' name='questionCheckbox' value="${i}" id='checkbox${i}'>  
                     ${currentQuestion.answers[i]}
                 </label>`
             );
@@ -194,9 +193,8 @@ function buildQuiz(currentQuestion, questionNumber){ //Bygger quizzet i quizCont
         ${currentQuestion.questions} </div>
         <div class="answers"> ${answers.join('')} </div>`
     );  
-    //Presenterar i DOM:en
-    quizContainer.innerHTML = output.join('');
-    // Visa/göm  eventlisteners       
+    quizContainer.innerHTML = output.join(''); //Presenterar i DOM:en
+    // Skapar visa/göm eventlisteners för varje radio/checkbox så nästaknappen bara syns om du svarat.     
     if (currentQuestion.type === "radio") {
         let radios = quizContainer.querySelectorAll(`input[type='radio']`);
         radios.forEach((radios) => {
@@ -214,6 +212,16 @@ function buildQuiz(currentQuestion, questionNumber){ //Bygger quizzet i quizCont
         checkboxes.forEach((box) => {
         box.addEventListener("change", isAnswerChecked);
         });
+    };
+    // Om man går tillbaka fylls det svarsalternativ man tidigare svarat i.
+    if (savedAnswerArray[questionCounter] != undefined && currentQuestion.type === "checkbox") {
+        savedAnswerArray[questionCounter].forEach((savedAnswer)=>{
+            document.getElementById(`checkbox${savedAnswer}`).checked = true
+            nextButton.style.visibility='visible';
+        });
+    } else if (savedAnswerArray[questionCounter] != undefined && currentQuestion.type === "radio") {
+            document.getElementById(`radio${savedAnswerArray[questionCounter]}`).checked = true ;
+            nextButton.style.visibility='visible';
     };
 };
 function correctTheQuiz() {
@@ -247,7 +255,7 @@ function correctTheQuiz() {
             quizContainer.innerHTML = resultOutput.join(''); 
             };                            
     });
-    console.log(score);
+    
     gradeResults(score); // Skapar G/VG/MVG
 };  
 function saveCurrentAnswer() { // Sparar svaret på nuvarandra fråga i en Array
@@ -310,10 +318,5 @@ toggleButton.addEventListener("click",(toggleTheme));
 startButton.addEventListener("click", startQuiz);
 nextButton.addEventListener("click", () => {
     nextButton.style.visibility = "hidden"
-    nextQuestion();
-});
+    nextQuestion() });
 previousButton.addEventListener("click", previousQuestion);
-previousButton.style.visibility='hidden'
-nextButton.style.visibility='hidden'
-//Ta bort
-//startQuiz();
