@@ -150,6 +150,7 @@ h5 { /* Fråga 1 2 3 4 etc */
   margin: auto;
   text-align: left;
   padding: 0px;
+  padding-bottom: 10px;
 }
 p {
   color: rgb(165, 105, 49);
