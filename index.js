@@ -1,5 +1,13 @@
-let qNa2 = [
+let qNa = [
     {
+        questions: "Är 1 + 1 = 5?",
+        answers: {
+            1: "Sant",
+            2: "Falskt"
+        },
+        type: "radio",
+        correctAnswer: ["2"]
+    },{
         questions: "Vilka länder är med i EU?",
         answers: {
             1: "Sverige",
@@ -9,18 +17,9 @@ let qNa2 = [
         },
         type: "checkbox",
         correctAnswer: ["1","2","3"]
-    },
-    {
-        questions: "Är 1 + 1 = 5?",
-        answers: {
-            1: "Sant",
-            2: "Falskt"
-        },
-        type: "radio",
-        correctAnswer: ["2"]
     }
 ];
-let qNa = [
+let qNa2 = [
     {
         questions: "Vilka länder är med i EU?",
         answers: {
@@ -157,7 +156,7 @@ function gradeResults(score) {
     let gradeContainer = document.querySelector("#grade");
     if ((score/qNa.length) < 0.5) {
         gradeContainer.innerHTML = `Tyvärr fick du underkänt :( Din poäng: ${score} av ${qNa.length}`;
-        gradeContainer.style.color = "red"
+        gradeContainer.style.color = "rgb(162, 1, 1)"
     } else if ((score/qNa.length) > 0.75) {
         gradeContainer.innerHTML = `MVG! :D Din poäng: ${score} av ${qNa.length}`;
         gradeContainer.style.color = "green"      

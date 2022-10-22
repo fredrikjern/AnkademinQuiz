@@ -213,6 +213,10 @@ input[type="radio"]::before {
 input[type="radio"]:checked::before {
   transform: scale(1);
 }
+input[type="radio"]:focus {
+  outline: max(2px, 0.15em) solid currentColor;
+  outline-offset: max(2px, 0.15em);
+}
 
 /* The switch - the box around the slider */
 .switch {
@@ -243,7 +247,7 @@ input[type="radio"]:checked::before {
   transition: .4s;
 }
 .slider:hover {
-  background-color: rgb(165, 105, 49); 
+  background-color: rgb(227, 210, 195); 
   color: white;
 }
 
@@ -258,21 +262,20 @@ input[type="radio"]:checked::before {
   -webkit-transition: .4s;
   transition: .4s;
 }
-
 input:checked + .slider {
   background-color: rgb(165, 105, 49);
 }
-
+input:checked + .slider:hover {
+  background-color: rgb(86, 55, 25);
+}
 input:focus + .slider {
   box-shadow: 0 0 1px rgb(165, 105, 49);
 }
-
 input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
-
 /* Rounded sliders */
 .slider.round {
   border-radius: 34px;
