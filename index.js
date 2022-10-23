@@ -1,25 +1,112 @@
-let qNa2 = [
+let historyQuestions = [
     {
-        questions: "Är 1 + 1 = 5?",
+        questions: "När bröt första världskriget ut?",
+        answers: {
+            1: "1929",
+            2: "1939",
+            3: "1932",
+            4: "1945"
+        },
+        type: "radio",
+        correctAnswer: ["3"]
+    },
+    {
+        questions: "Var Dwight Eisenhower USA's president under WW2?",
         answers: {
             1: "Sant",
             2: "Falskt"
         },
         type: "radio",
         correctAnswer: ["2"]
-    },{
-        questions: "Vilka länder är med i EU?",
+    },
+    {
+        questions: "Ad",
         answers: {
-            1: "Sverige",
-            2: "Tyskland",
-            3: "Danmark",
-            4: "Norge"
+            1: "Sant",
+            2: "Falskt"
+        },
+        type: "radio",
+        correctAnswer: ["2"]
+    },
+    {
+        questions: "Vilket land förklarade krig först i WW1?",
+        answers: {
+            1: "Österrike, Ungern",
+            2: "Polen",
+            3: "Tyskland",
+            4: "Ryssland"
+        },
+        type: "radio",
+        correctAnswer: ["3"]
+    },
+    {
+        questions: "Vilka djur har 4 ben?",
+        answers: {
+            1: "Hästar",
+            2: "Ormar",
+            3: "Människor",
+            4: "Hundar"
         },
         type: "checkbox",
-        correctAnswer: ["1","2","3"]
+        correctAnswer: ["1","4"]
+    },
+    {
+        questions: "Vem läser inte FEND22?",
+        answers: {
+            1: "Emelie",
+            2: "Tobias",
+            3: "Sofia",
+            4: "Arne Anka"
+        },
+        type: "checkbox",
+        correctAnswer: ["4"]
+    },
+    {
+        questions: "Vad är 2*(4-2)?",
+        answers: {
+            1: "1",
+            2: "6",
+            3: "18",
+            4: "4"
+        },
+        type: "radio",
+        correctAnswer: ["4"]
+    },
+    {
+        questions: "Vad är roten ur 9?",
+        answers: {
+            1: "2",
+            2: "5",
+            3: "3",
+            4: "4"
+        },
+        type: "radio",
+        correctAnswer: ["3"]
+    },
+    {
+        questions: "Vilka färger ingår i svenska flaggan?",
+        answers: {
+            1: "Röd",
+            2: "Gul",
+            3: "Brun",
+            4: "Blå"
+        },
+        type: "checkbox",
+        correctAnswer: ["2","4"]
+    },
+    {
+        questions: "Vad är 2 * 4?",
+        answers: {
+            1: "2",
+            2: "8",
+            3: "9",
+            4: "12"
+        },
+        type: "radio",
+        correctAnswer: ["2"]
     }
 ];
-let qNa = [
+let qNaF = [
     {
         questions: "Vilka länder är med i EU?",
         answers: {
@@ -130,12 +217,12 @@ let qNa = [
 // Funktioner
 function toggleTheme() { // Byter ut CSS filen i index.html
     if (theme.getAttribute('href') == 'lightmode.css') {
-        theme.setAttribute('href', 'darkmode.css');
+        theme.setAttribute('href', 'darkmode.css')
     } else {
         theme.setAttribute('href', 'lightmode.css');
     }
 };
-function isAnswerChecked() {    //Körs varje gång en checkbox blir ändras, kollar om någon checkbox är ifylld, om inte visas inte "Nästa fråga knappen" men på sista frågan visas "Rätta" knappen
+function isAnswerChecked() { //Körs varje gång en checkbox ändras, kollar om någon checkbox är ifylld, om inte visas inte "Nästa fråga knappen" men på sista frågan visas "Rätta" knappen
     let checkedAnswer = quizContainer.querySelectorAll(`input[type='checkbox']:checked`);
     if (questionCounter < ((qNa.length)-1)){
         if ((checkedAnswer.length) > 0) {
@@ -224,7 +311,7 @@ function buildQuiz(currentQuestion, questionNumber){ //Bygger en Quiz-fråga i #
             nextButton.style.visibility='visible';
     };
 };
-function correctTheQuiz() {
+function correctTheQuiz() { // Rättar svars-arrayen och skriver ut resultatet i DOM:en
     quizContainer.innerHTML = "";
     resultOutput = [];
     resultOutput.push(`<div class='grade' id="grade"> HEJ</div>`);
@@ -265,8 +352,9 @@ function saveCurrentAnswer() { // Sparar svaret på nuvarandra fråga i en Array
         answersChecked.push(`${node.value}`)
         });
     savedAnswerArray[questionCounter] = answersChecked;
-}
-function nextQuestion() { // Byter fråga i DOM:en
+};
+function nextQuestion() { // Sparar användarens svar och byter till fråga i DOM:en
+    nextButton.style.visibility = "hidden"; //Gömmer nästaknappen
     saveCurrentAnswer();
     questionCounter++;   
     if(questionCounter === 1){
@@ -279,6 +367,7 @@ function nextQuestion() { // Byter fråga i DOM:en
 };    
 function startQuiz() { // Startar Quizzet
     if (questionCounter === 0) {
+        qNa = qNaF;
         startButton.style.visibility='hidden';
         buildQuiz(qNa[questionCounter],questionCounter);
         startButton.textContent = "Rätta" ;
@@ -302,21 +391,20 @@ function previousQuestion() { // Byter till tidigare fråga.. vore fint att få 
 };
 // Variables
 let score = 0; 
+let questionCounter = 0;
 let savedAnswerArray = [];
 let toggleButton = document.querySelector("#toggleTheme");
 let startButton = document.getElementById("startButton");
 let nextButton = document.getElementById("nextButton");
 let previousButton = document.getElementById("previousButton")
 let quizContainer =  document.querySelector("#quizContainer");
-let questionCounter = 0;
 let btnContainer = document.querySelector("#buttonContainer");
+let darkmode = document.querySelector("#dark");
 // Initial styling, hidding buttons
 nextButton.style.visibility ='hidden';
 previousButton.style.visibility ='hidden';
 //Eventlisteners
-toggleButton.addEventListener("click",(toggleTheme));
+toggleButton.addEventListener("click", toggleTheme);
 startButton.addEventListener("click", startQuiz);
-nextButton.addEventListener("click", () => {
-    nextButton.style.visibility = "hidden"
-    nextQuestion() });
+nextButton.addEventListener("click", nextQuestion);
 previousButton.addEventListener("click", previousQuestion);
