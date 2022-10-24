@@ -1,4 +1,5 @@
-let historyQuestions = [
+//Quiz-arrayer
+let historyQuiz = [
     {
         questions: "När bröt första världskriget ut?",
         answers: {
@@ -20,13 +21,13 @@ let historyQuestions = [
         correctAnswer: ["2"]
     },
     {
-        questions: "Ad",
+        questions: "Potatisen kom till Sverige på 1600-talet",
         answers: {
             1: "Sant",
             2: "Falskt"
         },
         type: "radio",
-        correctAnswer: ["2"]
+        correctAnswer: ["1"]
     },
     {
         questions: "Vilket land förklarade krig först i WW1?",
@@ -37,7 +38,7 @@ let historyQuestions = [
             4: "Ryssland"
         },
         type: "radio",
-        correctAnswer: ["3"]
+        correctAnswer: ["1"]
     },
     {
         questions: "Vilka djur har 4 ben?",
@@ -62,23 +63,23 @@ let historyQuestions = [
         correctAnswer: ["4"]
     },
     {
-        questions: "Vad är 2*(4-2)?",
+        questions: "Vem är den största erövraren genom tiderna? (Kontrollerat territorie)",
         answers: {
-            1: "1",
-            2: "6",
-            3: "18",
-            4: "4"
+            1: "Alexander den store",
+            2: "Julius Ceasar",
+            3: "Ghengis Khan",
+            4: "Napoleon"
         },
         type: "radio",
-        correctAnswer: ["4"]
+        correctAnswer: ["3"]
     },
     {
-        questions: "Vad är roten ur 9?",
+        questions: "När inleddes Franska Revolutionen?",
         answers: {
-            1: "2",
-            2: "5",
-            3: "3",
-            4: "4"
+            1: "1792",
+            2: "1783",
+            3: "1789",
+            4: "1779"
         },
         type: "radio",
         correctAnswer: ["3"]
@@ -106,7 +107,28 @@ let historyQuestions = [
         correctAnswer: ["2"]
     }
 ];
-let qNaF = [
+let devQuestions = [
+    {
+        questions: "Vilka länder ligger i Skandinavien?",
+        answers: {
+            1: "Sverige",
+            2: "Tyskland",
+            3: "Danmark",
+            4: "Norge"
+        },
+        type: "checkbox",
+        correctAnswer: ["1","3","4"]
+    },
+    {
+        questions: "Är checkboxar roligare än radioknappar?",
+        answers: {
+            1: "Sant",
+            2: "Falskt"
+        },
+        type: "radio",
+        correctAnswer: ["2"]
+    }];
+let euQuiz = [
     {
         questions: "Vilka länder är med i EU?",
         answers: {
@@ -119,7 +141,7 @@ let qNaF = [
         correctAnswer: ["1","2","3"]
     },
     {
-        questions: "Är 1 + 1 = 5?",
+        questions: "EU har 25 medlemsnationer.",
         answers: {
             1: "Sant",
             2: "Falskt"
@@ -128,71 +150,71 @@ let qNaF = [
         correctAnswer: ["2"]
     },
     {
-        questions: "Är 2 + 4 = 6?",
+        questions: "EU är med i NATO",
         answers: {
             1: "Sant",
             2: "Falskt"
         },
         type: "radio",
-        correctAnswer: ["1"]
+        correctAnswer: ["2"]
     },
     {
-        questions: "Är 2 + 4 = 6?",
+        questions: "Vem var EU:s första ordförande?",
         answers: {
-            1: "Falskt",
-            2: "Sant",
-            3: "Kanske",
-            4: "I en annan värld"
+            1: "Ursula von der Leyen",
+            2: "Walter Hallstein",
+            3: "Olof Palme",
+            4: "Nicolas Sarkozy"
         },
         type: "radio",
         correctAnswer: ["2"]
     },
     {
-        questions: "Vilka djur har 4 ben?",
+        questions: "Vilka länder har lämnat EU?",
         answers: {
-            1: "Hästar",
-            2: "Ormar",
-            3: "Människor",
-            4: "Hundar"
+            1: "Norge",
+            2: "Finland",
+            3: "UK",
+            4: "Slovenien"
         },
         type: "checkbox",
-        correctAnswer: ["1","4"]
-    },
-    {
-        questions: "Vem läser inte FEND22?",
-        answers: {
-            1: "Emelie",
-            2: "Tobias",
-            3: "Sofia",
-            4: "Arne Anka"
-        },
-        type: "checkbox",
-        correctAnswer: ["4"]
-    },
-    {
-        questions: "Vad är 2*(4-2)?",
-        answers: {
-            1: "1",
-            2: "6",
-            3: "18",
-            4: "4"
-        },
-        type: "radio",
-        correctAnswer: ["4"]
-    },
-    {
-        questions: "Vad är roten ur 9?",
-        answers: {
-            1: "2",
-            2: "5",
-            3: "3",
-            4: "4"
-        },
-        type: "radio",
         correctAnswer: ["3"]
     },
     {
-        questions: "Vilka färger ingår i svenska flaggan?",
+        questions: "Vilka länder är med i EMU (Economic & Monetary Union)?",
+        answers: {
+            1: "Tyskland",
+            2: "Sverige",
+            3: "Frankrike",
+            4: "Grekland"
+        },
+        type: "checkbox",
+        correctAnswer: ["1","3","4"]
+    },
+    {
+        questions: "När grundades Europeiska Unionen?",
+        answers: {
+            1: "1945",
+            2: "2001",
+            3: "1973",
+            4: "1993"
+        },
+        type: "radio",
+        correctAnswer: ["4"]
+    },
+    {
+        questions: "I vilken stad skrevs EU:s författning?",
+        answers: {
+            1: "Hamburg",
+            2: "Maastricht",
+            3: "Lyon",
+            4: "Greenwich"
+        },
+        type: "radio",
+        correctAnswer: ["2"]
+    },
+    {
+        questions: "Vilka färger ingår i Europeiska flaggan?",
         answers: {
             1: "Röd",
             2: "Gul",
@@ -203,15 +225,15 @@ let qNaF = [
         correctAnswer: ["2","4"]
     },
     {
-        questions: "Vad är 2 * 4?",
+        questions: "Hur många platser finns det i EU-parlamentet?",
         answers: {
-            1: "2",
-            2: "8",
-            3: "9",
-            4: "12"
+            1: "349",
+            2: "915",
+            3: "705",
+            4: "695"
         },
         type: "radio",
-        correctAnswer: ["2"]
+        correctAnswer: ["3"]
     }
 ];
 // Funktioner
@@ -220,16 +242,15 @@ function createProgressBar(qNa) { // Generar en <li>(progressstep) för varje fr
     progressNum.innerHTML = "";
     
     for (let i = 1; i < (qNa.length+1); i++) {
-        progressOutput.push(`<li class="step">${(i)}</li>`);
+        progressOutput.push(`<li class="step"></li>`);
     };
     progressNum.innerHTML = progressOutput.join('');
     steps = document.querySelectorAll(".step");
-    //steps[0].classList.add("active");
+    
 };
 function updateProgress() {
-    // toggle active class on list items
+    // Uppdaterar hur många prickar som syns beroende på active som beror på aktuell questionCounter
     steps.forEach((step, i) => {
-        console.log(i + "inne i stepsForeahc")
         if (i < active) {
           step.classList.add("active");
         } else {
@@ -237,8 +258,8 @@ function updateProgress() {
         }
       });
       // set progress bar width  
-      progressBar.style.width = 
-        ((active - 1) / (steps.length - 1)) * 70 + "%"; 
+      //progressBar.style.width = 
+        //((active - 1) / (steps.length - 1)) * 70 + "%"; 
 };
 function toggleTheme() { // Byter ut CSS filen i index.html
     if (theme.getAttribute('href') == 'lightmode.css') {
@@ -251,15 +272,15 @@ function isAnswerChecked() { //Körs varje gång en checkbox ändras, kollar om 
     let checkedAnswer = quizContainer.querySelectorAll(`input[type='checkbox']:checked`);
     if (questionCounter < ((qNa.length)-1)){
         if ((checkedAnswer.length) > 0) {
-            nextButton.style.visibility = 'visible';
+            rightButton.style.visibility = 'visible';
         } else {
-            nextButton.style.visibility = 'hidden';
+            rightButton.style.visibility = 'hidden';
         };
     } else if (questionCounter === ((qNa.length)-1)){
         if (((checkedAnswer.length) > 0)) {
-            startButton.style.visibility = 'visible';
+            centerButton.style.visibility = 'visible';
         } else {
-            startButton.style.visibility = 'hidden';
+            centerButton.style.visibility = 'hidden';
         }; 
     };
 };
@@ -312,9 +333,9 @@ function buildQuiz(currentQuestion, questionNumber){ //Bygger en Quiz-fråga i #
         radios.forEach((radios) => {
         radios.addEventListener("change", () => {
             if (questionCounter < ((qNa.length-1))) {
-                nextButton.style.visibility="visible"
+                rightButton.style.visibility="visible"
             } else {
-                startButton.style.visibility="visible"
+                centerButton.style.visibility="visible"
             };
             
         });
@@ -329,15 +350,16 @@ function buildQuiz(currentQuestion, questionNumber){ //Bygger en Quiz-fråga i #
     if (savedAnswerArray[questionCounter] != undefined && currentQuestion.type === "checkbox") {
         savedAnswerArray[questionCounter].forEach((savedAnswer)=>{
             document.getElementById(`checkbox${savedAnswer}`).checked = true
-            nextButton.style.visibility='visible';
+            rightButton.style.visibility='visible';
         });
     } else if (savedAnswerArray[questionCounter] != undefined && currentQuestion.type === "radio") {
             document.getElementById(`radio${savedAnswerArray[questionCounter]}`).checked = true ;
-            nextButton.style.visibility='visible';
+            rightButton.style.visibility='visible';
     };
 };
 function correctTheQuiz() { // Rättar svars-arrayen och skriver ut resultatet i DOM:en
     quizContainer.innerHTML = "";
+    progressBar.style.display = "none";
     resultOutput = [];
     resultOutput.push(`<div class='grade' id="grade"> HEJ</div>`);
     savedAnswerArray.forEach((answer, questionNumber) => {
@@ -364,6 +386,7 @@ function correctTheQuiz() { // Rättar svars-arrayen och skriver ut resultatet i
             });
             resultOutput.push(currCorrAns);
             resultOutput.push(`</div>`)
+            quizContainer.style.height = "auto";
             quizContainer.innerHTML = resultOutput.join(''); 
             };                            
     });
@@ -379,55 +402,53 @@ function saveCurrentAnswer() { // Sparar svaret på nuvarandra fråga i en Array
     savedAnswerArray[questionCounter] = answersChecked;
 };
 function nextQuestion() { // Sparar användarens svar och byter till fråga i DOM:en
-    nextButton.style.visibility = "hidden"; //Gömmer nästaknappen
+    rightButton.style.visibility = "hidden"; //Gömmer nästaknappen
     saveCurrentAnswer();
     questionCounter++;
-    active = questionCounter;
-    updateProgress;   
+    active = (questionCounter+1);
+    updateProgress();   
     if(questionCounter === 1){
-        previousButton.style.visibility = "visible";        
+        leftButton.style.visibility = "visible";        
         buildQuiz(qNa[questionCounter],questionCounter);  
     } else {
         buildQuiz(qNa[questionCounter],questionCounter);
     };
     ; 
 };    
-function startQuiz() { // Startar Quizzet
-    if (questionCounter === 0) {
-        qNa = qNaF;
-        startButton.style.visibility='hidden';
+function startQuiz(userchoice) { // Startar Quizzet
+        quizContainer.style.height = "270px";
+        qNa = userchoice;
+        centerButton.style.visibility= 'hidden';
+        leftButton.style.visibility= 'hidden';
+        rightButton.style.visibility='hidden';
         buildQuiz(qNa[questionCounter],questionCounter);
         createProgressBar(qNa); //Bygger progressbaren initial
-        active = questionCounter;
-        updateProgress; //Uppdaterar
-        startButton.textContent = "Rätta" ;
-    } else if (questionCounter === (qNa.length)){
-        location.reload();
-    } else {
-        saveCurrentAnswer();
-        correctTheQuiz();
-        previousButton.style.visibility="hidden";
-        questionCounter++;
-        startButton.textContent = "Börja om" ;
-    };
+        active = (questionCounter+1);
+        updateProgress(); //Uppdaterar
+        centerButton.textContent = "Rätta" ;
+        leftButton.textContent = "Tidigare fråga";
+        rightButton.textContent ="Nästa fråga";
 };
 function previousQuestion() { // Byter till tidigare fråga.. vore fint att få in att gamla alternativen är ifyllda?
-    startButton.style.visibility = "hidden";
+    centerButton.style.visibility = "hidden";
     questionCounter--;
+    active = (questionCounter+1);
+    updateProgress();
     buildQuiz(qNa[questionCounter],questionCounter);
     if (questionCounter === 0) {
-        previousButton.style.visibility = 'hidden';
+        leftButton.style.visibility = 'hidden';
     };
 };
 // Variables
+let chooseQuiz = true;
 let qNa = [];
 let score = 0; 
 let questionCounter = 0;
 let savedAnswerArray = [];
 let toggleButton = document.querySelector("#toggleTheme");
-let startButton = document.getElementById("startButton");
-let nextButton = document.getElementById("nextButton");
-let previousButton = document.getElementById("previousButton")
+let centerButton = document.getElementById("centerButton");
+let rightButton = document.getElementById("rightButton");
+let leftButton = document.getElementById("leftButton")
 let quizContainer =  document.querySelector("#quizContainer");
 let btnContainer = document.querySelector("#buttonContainer");
 let darkmode = document.querySelector("#dark");
@@ -438,11 +459,35 @@ let progressPrev = document.getElementById("progress-prev");// bort
 let progressNum = document.getElementById("progress-num");
 let steps = document.querySelectorAll(".step");
 let active = 1;
-// Initial styling, hidding buttons
-nextButton.style.visibility ='hidden';
-previousButton.style.visibility ='hidden';
 //Eventlisteners
 toggleButton.addEventListener("click", toggleTheme);
-startButton.addEventListener("click", startQuiz);
-nextButton.addEventListener("click", nextQuestion);
-previousButton.addEventListener("click", previousQuestion);
+centerButton.addEventListener("click", ()=>{
+    if (chooseQuiz) {
+        startQuiz(euQuiz)
+        chooseQuiz = false;
+    } else if (questionCounter === (qNa.length)){
+        location.reload();
+    } else {
+        saveCurrentAnswer();
+        correctTheQuiz();
+        leftButton.style.visibility="hidden";
+        questionCounter++;
+        centerButton.textContent = "Börja om" ;
+    };
+});
+rightButton.addEventListener("click", ()=>{
+    if (chooseQuiz) {
+        startQuiz(devQuestions)
+        chooseQuiz = false;
+    } else {
+        nextQuestion();
+    }
+});
+leftButton.addEventListener("click", () => {
+    if (chooseQuiz) {
+        startQuiz(historyQuiz)
+        chooseQuiz = false;
+    } else {
+        previousQuestion();
+    }
+});
