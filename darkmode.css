@@ -28,7 +28,6 @@ div {
 }
 .btnContainer{
   color: rgb(146, 106, 40);
-  
   font-family: Helvetica, sans-serif, Verdana, sans-serif;
   font-size: small;
   outline-style: none;
@@ -38,26 +37,15 @@ div {
   border-radius: none;
 }
 .quizContainer{
-  color: rgb(27, 26, 26);
+  background-color: rgb(27, 26, 26);
+  color: white;
   font-family: Helvetica, sans-serif, Verdana, sans-serif;
   font-size: small;
   outline-style: none;
-  text-align: center;
+  text-align: left;
   border: 12px solid rgb(27, 26, 26);
   padding: 10px;
   border-radius: none;
-}
-.questionContainer{
-  color: rgb(0, 0, 0);
-  margin: auto;
-  font-family: Helvetica, sans-serif, Verdana, sans-serif;
-  font-size: small;
-  outline-style: none;
-  text-align: center;
-  border: 12px solid rgb(255, 255, 255);
-  padding: 10px;
-  border-radius: none;
-  height: auto;
 }
 .dark{
   background-color:rgb(0, 0, 0);
@@ -73,7 +61,7 @@ div {
 }
 .question {
   color: rgb(204, 201, 201);
-  margin-left: 20px;
+  width: auto;
   outline-style: none;
   border: none;
   padding: 10px;
@@ -82,9 +70,9 @@ div {
 }
 .answers {
   color: rgb(200, 200, 200);
-  padding: 10px;
   outline-style: none;
   border: none;
+  padding: 10px;
   padding-left: 20px;
   margin: 10px;
 }
@@ -170,7 +158,8 @@ p {
   display: inline-block;
   font-size: 16px;
   margin: auto;
-  border-radius: 4px;
+  border-radius: 2px;
+  width: 180px;
 }
 .quizButton:hover {
   background-color: rgb(117, 75, 35); 
@@ -181,7 +170,6 @@ p {
   --form-control-color: rgb(165, 105, 49);
   --form-control-disabled: #959495;
 }
-
 *,
 *:before,
 *:after {
@@ -189,44 +177,35 @@ p {
 }
 .form-control-check {
   font-family: system-ui, sans-serif;
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.1;
   display: grid;
   grid-template-columns: 1em auto;
   gap: 0.5em;
 }
-
 .form-control-check + .form-control-check {
   margin-top: 1em;
 }
-
 .form-control--disabled {
   color: var(--form-control-disabled);
   cursor: not-allowed;
 }
-
 input[type="checkbox"] {
-  /* Add if not using autoprefixer */
   -webkit-appearance: none;
-  /* Remove most all native input styles */
   appearance: none;
-  /* For iOS < 15 */
   background-color: var(--form-background);
-  /* Not removed via appearance */
   margin: 0;
-
   font: inherit;
   color: rgb(165, 105, 49);
   width: 1.15em;
   height: 1.15em;
   border: 0.15em solid rgb(165, 105, 49);
   border-radius: 0.15em;
-  transform: translateY(-1.075em);
+  transform: translateY(1em);
   transform: translateX(-0.475em);
   display: grid;
   place-content: center;
 }
-
 input[type="checkbox"]::before {
   content: "";
   width: 0.65em;
@@ -236,29 +215,24 @@ input[type="checkbox"]::before {
   transform-origin: bottom left;
   transition: 120ms transform ease-in-out;
   box-shadow: inset 1em 1em var(--form-control-color);
-  /* Windows High Contrast Mode */
   background-color: inherit;
 }
-
 input[type="checkbox"]:checked::before {
   transform: scale(1);
 }
-
 input[type="checkbox"]:focus {
-  outline: max(2px, 0.15em) solid currentColor;
+  outline: max(2px, 0.15em) solid rgb(96, 95, 95);
   outline-offset: max(1px, 0.15em);
 }
 /* Radio-buttons */
 :root {
   --form-control-color: rgb(230, 170, 86);
 }
-
 *,
 *:before,
 *:after {
   box-sizing: border-box;
 }
-
 .form-control-radio {
   font-family: inherit, sans-serif;
   font-size: 17px;
@@ -267,36 +241,28 @@ input[type="checkbox"]:focus {
   grid-template-columns: 1em auto;
   gap: 0.5em;
 }
-
 .form-control-radio + .form-control-radio {
   margin-top: 1em;
 }
-
 .form-control-radio:focus-within {
   color: var(--form-control-color);
 }
-
 input[type="radio"] {
-  /* Add if not using autoprefixer */
   -webkit-appearance: none;
-  /* Remove most all native input styles */
   appearance: none;
-  /* For iOS < 15 */
   background-color: var(--form-background);
-  /* Not removed via appearance */
   margin: 0;
-
   font: inherit;
   color: black;
-  width: 1.15em;
-  height: 1.15em;
+  width: 1em;
+  height: 1em;
   border: 0.15em solid rgb(165, 105, 49);
   border-radius: 50%;
-  transform: translateY(-0.075em);
+  transform: translateY(-0.115em);
+  transform: translateX(-0.475em);
   display: grid;
   place-content: center;
 }
-
 input[type="radio"]::before {
   content: "";
   width: 0.65em;
@@ -305,56 +271,35 @@ input[type="radio"]::before {
   transform: scale(0);
   transition: 120ms transform ease-in-out;
   box-shadow: inset 1em 1em var(--form-control-color);
-  /* Windows High Contrast Mode */
   background-color: CanvasText;
 }
-
 input[type="radio"]:checked::before {
   transform: scale(1);
 }
-
 input[type="radio"]:focus {
-  outline: max(1px, 0.15em) solid currentColor;
-  outline-offset: max(2px, 0.15em);
+  outline: max(0.5px, 0.15em) solid rgb(96, 95, 95);
+  outline-offset: max(1px, 0.15em);
 }
-  /* The switch - the box around the slider */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-    transform: translateY(-0.825em);
-    font-family: inherit, sans-serif;
-    font-size: 17px;
-    line-height: 1.1;
-    grid-template-columns: 1em auto;
-    gap: 0.5em;
-  }
-  
-  /* Hide default HTML checkbox */
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
 /* The switch - the box around the slider */
 .switch {
   position: relative;
   display: inline-block;
   width: 60px;
   height: 34px;
+  transform: translateY(-0.825em);
+  font-family: inherit, sans-serif;
+  font-size: 17px;
+  line-height: 1.1;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
 }
-
 /* Hide default HTML checkbox */
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
-
 /* The slider */
-
 .slider {
   position: absolute;
   cursor: pointer;
@@ -363,14 +308,13 @@ input[type="radio"]:focus {
   right: 0;
   bottom: 0;
   background-color: rgba(255, 255, 255, 0.706);
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: .3s;
+  transition: .3s;
 }
 .slider:hover {
   background-color: rgb(227, 210, 195); 
   color: white;
 }
-
 .slider:before {
   position: absolute;
   content: "";
@@ -400,52 +344,34 @@ input:checked + .slider:before {
 .slider.round {
   border-radius: 34px;
 }
-
 .slider.round:before {
   border-radius: 50%;
 }
 /* Progress bar */
-.ul {
-  background: rgb(27, 26, 26); 
-  color: rgb(27, 26, 26);
-}
-.li {
-  background: rgb(27, 26, 26); 
-  color: rgb(27, 26, 26);
-}
-
 #progress {  /*Relative positioning so we can use absolute position on the children elements.*/
-  position: relative;
+  background-color: rgb(27, 26, 26);
   color: rgb(0, 0, 0);
   outline-style: none;
-  border: 12px solid rgb(27, 26, 26);
-  padding: 10px rgb(27, 26, 26);
-  border-radius: none;  
-
+  border: none;
+  border-radius: none;   
+  padding: none;
+  margin: none;
 }
 #progress-bar { /*This sets the base styles for the the progress bar, we toggle it’s width in the JavaScript.    */
-  position: absolute;
-  background: rgb(230, 170, 86);
-  color: rgb(27, 26, 26);
-  height: 5px;
-  width: 0%;
-  top: 50%;
-  left: 0;
-  margin: 10px;
-
+  background-color: rgb(27, 26, 26);
+  background: rgb(27, 26, 26);
 }
 #progress-num { /*This evenly distributes the numbers within the parent <div> no matter the width.*/
-  margin-left: 10px;
-  margin-right: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
+  margin: 0px 10px 0px 10px;
+  padding: 0px 10px 0px 10px;
+  border: 1px solid rgb(27, 26, 26);
   list-style: none;
   display: flex;
   justify-content: space-between;
 }
 #progress-num::before { /*CSS pseudo-element that represents the inactive portion of the progress bar.*/
   content: "";
-  background-color: rgb(27, 26, 26);
+  background-color: rgb(0, 0, 0);
   position: absolute;
   top: 50%;
   left: 0;
@@ -454,11 +380,11 @@ input:checked + .slider:before {
   z-index: -1;
 }
 #progress-num .step { /*Styles each inactive steps inside a circle.*/
-  border: 3px solid lightgray;
+  border: 3px solid rgb(134, 134, 134);
   border-radius: 100%;
-  width: 25px;
-  height: 25px;
-  line-height: 25px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
   text-align: center;
   background-color: rgb(27, 26, 26);
   font-family: sans-serif;
@@ -469,9 +395,6 @@ input:checked + .slider:before {
 #progress-num .step.active { /*Styles active steps border and background color to match the progress bar.*/
   border-color: rgb(230, 170, 86);
   background-color: rgb(230, 170, 86);
-  color:rgb(27, 26, 26);
+  color: black;
   opacity: 70%;
-
-   
-  
 }
