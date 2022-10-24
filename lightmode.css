@@ -381,3 +381,58 @@ input[type="radio"]:focus {
   .slider.round:before {
     border-radius: 50%;
   }
+
+  /* Progress bar */
+
+  #progress {  /*Relative positioning so we can use absolute position on the children elements.*/
+    position: relative;
+    margin-bottom: 30px; /* TAbort*/
+    color: rgb(0, 0, 0);
+    outline-style: none;
+    border: 12px solid rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: none;   
+  }
+  #progress-bar { /*This sets the base styles for the the progress bar, we toggle it’s width in the JavaScript.    */
+    position: absolute;
+    background: lightseagreen;
+    height: 5px;
+    width: 0%;
+    top: 50%;
+    left: 0;
+  }
+  #progress-num { /*This evenly distributes the numbers within the parent <div> no matter the width.*/
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+  }
+  #progress-num::before { /*CSS pseudo-element that represents the inactive portion of the progress bar.*/
+    content: "";
+    background-color: lightgray;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 5px;
+    width: 100%;
+    z-index: -1;
+  }
+  #progress-num .step { /*Styles each inactive steps inside a circle.*/
+    border: 3px solid lightgray;
+    border-radius: 100%;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    background-color: #fff;
+    font-family: sans-serif;
+    font-size: 14px;    
+    position: relative;
+    z-index: 1;
+  }
+  #progress-num .step.active { /*Styles active steps border and background color to match the progress bar.*/
+    border-color: lightseagreen;
+    background-color: lightseagreen;
+    color: #fff;
+  }

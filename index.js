@@ -215,6 +215,31 @@ let qNaF = [
     }
 ];
 // Funktioner
+function createProgressBar(qNa) { // Generar en <li>(progressstep) för varje fråga i frågeArrayen och skickar presenterar i DOM:en.
+    let progressOutput = [];
+    progressNum.innerHTML = "";
+    
+    for (let i = 1; i < (qNa.length+1); i++) {
+        progressOutput.push(`<li class="step">${(i)}</li>`);
+    };
+    progressNum.innerHTML = progressOutput.join('');
+    steps = document.querySelectorAll(".step");
+    //steps[0].classList.add("active");
+};
+function updateProgress() {
+    // toggle active class on list items
+    steps.forEach((step, i) => {
+        console.log(i + "inne i stepsForeahc")
+        if (i < active) {
+          step.classList.add("active");
+        } else {
+          step.classList.remove("active");
+        }
+      });
+      // set progress bar width  
+      progressBar.style.width = 
+        ((active - 1) / (steps.length - 1)) * 70 + "%"; 
+};
 function toggleTheme() { // Byter ut CSS filen i index.html
     if (theme.getAttribute('href') == 'lightmode.css') {
         theme.setAttribute('href', 'darkmode.css')
@@ -356,7 +381,9 @@ function saveCurrentAnswer() { // Sparar svaret på nuvarandra fråga i en Array
 function nextQuestion() { // Sparar användarens svar och byter till fråga i DOM:en
     nextButton.style.visibility = "hidden"; //Gömmer nästaknappen
     saveCurrentAnswer();
-    questionCounter++;   
+    questionCounter++;
+    active = questionCounter;
+    updateProgress;   
     if(questionCounter === 1){
         previousButton.style.visibility = "visible";        
         buildQuiz(qNa[questionCounter],questionCounter);  
@@ -370,6 +397,9 @@ function startQuiz() { // Startar Quizzet
         qNa = qNaF;
         startButton.style.visibility='hidden';
         buildQuiz(qNa[questionCounter],questionCounter);
+        createProgressBar(qNa); //Bygger progressbaren initial
+        active = questionCounter;
+        updateProgress; //Uppdaterar
         startButton.textContent = "Rätta" ;
     } else if (questionCounter === (qNa.length)){
         location.reload();
@@ -390,6 +420,7 @@ function previousQuestion() { // Byter till tidigare fråga.. vore fint att få 
     };
 };
 // Variables
+let qNa = [];
 let score = 0; 
 let questionCounter = 0;
 let savedAnswerArray = [];
@@ -400,6 +431,13 @@ let previousButton = document.getElementById("previousButton")
 let quizContainer =  document.querySelector("#quizContainer");
 let btnContainer = document.querySelector("#buttonContainer");
 let darkmode = document.querySelector("#dark");
+
+let progressBar = document.getElementById("progress-bar");
+let progressNext = document.getElementById("progress-next"); //
+let progressPrev = document.getElementById("progress-prev");// bort
+let progressNum = document.getElementById("progress-num");
+let steps = document.querySelectorAll(".step");
+let active = 1;
 // Initial styling, hidding buttons
 nextButton.style.visibility ='hidden';
 previousButton.style.visibility ='hidden';
