@@ -43,20 +43,32 @@ div {
   font-size: small;
   outline-style: none;
   text-align: left;
-  border: 12px solid rgb(27, 26, 26);
-  padding: 10px;
+  border: 12px 12px 0px 12px solid rgb(27, 26, 26);
+  padding: 10px 10px 0px 10px;
   border-radius: none;
 }
 .dark{
   background-color:rgb(0, 0, 0);
-  color: rgb(255, 255, 255);
+  color: rgb(204, 201, 201);
   margin: auto;
   font-family: Helvetica, sans-serif, Verdana, sans-serif;
   font-size: small;
   outline-style: none;
   text-align: right;
   border: none;
-  padding: 10px;
+  padding: 15px 0px 0px 10px;
+  border-radius: none;
+}
+.copywright {
+  background-color: rgb(0, 0, 0);
+  color: rgb(165, 105, 49);
+  margin: auto;
+  font-family: Helvetica, sans-serif, Verdana, sans-serif;
+  font-size: small;
+  text-align: right;
+  width: 50%;
+  border: 12px solid rgb(0, 0, 0);
+  padding: 0px;
   border-radius: none;
 }
 .question {
@@ -66,15 +78,14 @@ div {
   border: none;
   padding: 10px;
   font-size: 18px;
-  margin: 10px;
+  margin: 0px 52px 0px 52px;;
 }
 .answers {
   color: rgb(200, 200, 200);
   outline-style: none;
   border: none;
-  padding: 10px;
-  padding-left: 20px;
-  margin: 10px;
+  padding: 10px 10px 0px 20px;
+  margin: 0px 52px 0px 52px;;
 }
 .wrong {
   color: rgb(145, 14, 14);
@@ -121,9 +132,9 @@ div {
   border: none;
   border-radius: none;
 }
-/* h1 h2 petc */
+/* h1 h2 p etc */
 h1 { /* Ankademin */
-  color: rgb(255, 255, 255);
+  color: rgb(226, 226, 226);
   margin: auto;
   padding: 10px;
   text-align: center;
@@ -140,12 +151,6 @@ h5 { /* Fråga 1 2 3 4 etc */
   text-align: left;
   padding: 0px;
   padding-bottom: 10px;
-}
-p {
-  color: rgb(165, 105, 49);
-  margin-left: 20px;
-  font-family: Helvetica, sans-serif, Verdana, sans-serif;
-  font-size: 15px;
 }
 /* Knappar */
 .quizButton {
@@ -348,20 +353,22 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 /* Progress bar */
-#progress {  /*Relative positioning so we can use absolute position on the children elements.*/
+#progress { 
   background-color: rgb(27, 26, 26);
   color: rgb(0, 0, 0);
   outline-style: none;
-  border: none;
+  border: 0px 0px 20px 0px;;
+  border-color: rgb(27, 26, 26);
   border-radius: none;   
   padding: none;
   margin: none;
+ 
 }
-#progress-bar { /*This sets the base styles for the the progress bar, we toggle it’s width in the JavaScript.    */
+#progress-bar { 
   background-color: rgb(27, 26, 26);
   background: rgb(27, 26, 26);
 }
-#progress-num { /*This evenly distributes the numbers within the parent <div> no matter the width.*/
+#progress-num { 
   margin: 0px 10px 0px 10px;
   padding: 0px 10px 0px 10px;
   border: 1px solid rgb(27, 26, 26);

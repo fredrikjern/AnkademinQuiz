@@ -1,4 +1,4 @@
-//Quiz-arrayer
+// Quiz-arrayer
 let historyQuiz = [
     {
         questions: "När bröt första världskriget ut?",
@@ -32,7 +32,7 @@ let historyQuiz = [
     {
         questions: "Vilket land förklarade krig först i WW1?",
         answers: {
-            1: "Österrike, Ungern",
+            1: "Österrike-Ungern",
             2: "Polen",
             3: "Tyskland",
             4: "Ryssland"
@@ -41,26 +41,26 @@ let historyQuiz = [
         correctAnswer: ["1"]
     },
     {
-        questions: "Vilka djur har 4 ben?",
+        questions: "Vem var Sveriges första kung?",
         answers: {
-            1: "Hästar",
-            2: "Ormar",
-            3: "Människor",
-            4: "Hundar"
+            1: "Gustav Adolf",
+            2: "Gustav Vasa",
+            3: "Gustav Wasa",
+            4: "Zlatan"
         },
-        type: "checkbox",
-        correctAnswer: ["1","4"]
+        type: "radio",
+        correctAnswer: ["2"]
     },
     {
-        questions: "Vem läser inte FEND22?",
+        questions: "Vilka var Winston Churchills favorit drycker?",
         answers: {
-            1: "Emelie",
-            2: "Tobias",
-            3: "Sofia",
-            4: "Arne Anka"
+            1: "Whisky",
+            2: "Champagne",
+            3: "Dry Martini",
+            4: "Brandy"
         },
         type: "checkbox",
-        correctAnswer: ["4"]
+        correctAnswer: ["2","4"]
     },
     {
         questions: "Vem är den största erövraren genom tiderna? (Kontrollerat territorie)",
@@ -85,23 +85,23 @@ let historyQuiz = [
         correctAnswer: ["3"]
     },
     {
-        questions: "Vilka färger ingår i svenska flaggan?",
+        questions: "Vilka länder ingick i Trippelententen (allians) under WW1?",
         answers: {
-            1: "Röd",
-            2: "Gul",
-            3: "Brun",
-            4: "Blå"
+            1: "Storbritannien",
+            2: "Ryssland",
+            3: "Spanien",
+            4: "Frankrike"
         },
         type: "checkbox",
-        correctAnswer: ["2","4"]
+        correctAnswer: ["1","2","4"]
     },
     {
-        questions: "Vad är 2 * 4?",
+        questions: "Vem sa: “Success is not final, failure is not fatal, it is the courage to continue that counts.” ?",
         answers: {
-            1: "2",
-            2: "8",
-            3: "9",
-            4: "12"
+            1: "Muhammed Ali",
+            2: "Winston Churchill",
+            3: "Dwight Eisenhover",
+            4: "Ed Sheeran"
         },
         type: "radio",
         correctAnswer: ["2"]
@@ -237,18 +237,24 @@ let euQuiz = [
     }
 ];
 // Funktioner
-function createProgressBar(qNa) { // Generar en <li></li>(progressstep) för varje fråga i frågeArrayen och presenterar i DOM:en.
+function createProgressBar(qNa) {  // Skapar och lägger till en div ovanför btnContainer-diven med en div i sig och genererar en lista som används som progressbar
+    let pDiv = document.createElement('div'); // Ville använda createElement en gång, smidigare när ett element ska placeras in med precision i DOM:en men enklare och mer överskådligt att använda innerHTML upplever jag i övrigt.
+    pDiv.setAttribute('id', 'progress');
+    pDiv.innerHTML = `<div id='progress-bar'><ul id='progress-num'></ul></div>`;
+    btnContainer.parentNode.insertBefore(pDiv, btnContainer); // Placerar pDiv "innan"/ovanför btnC
+    progressDiv = document.getElementById("progress"); // Uppdaterar dom globalt definierade "pekningar?"
+    progressBar = document.getElementById("progress-bar");
+    progressNum = document.getElementById("progress-num");
     let progressOutput = [];
-    progressNum.innerHTML = "";
-    for (let i = 1; i < (qNa.length+1); i++) {
+    for (let i = 1; i < ((qNa.length)+1); i++) { // Generar en <li></li>(progressstep) för varje fråga i frågeArrayen
         progressOutput.push(`<li class="step"></li>`);
     };
     progressNum.innerHTML = progressOutput.join('');
-    steps = document.querySelectorAll(".step");
     progressBar.style.width = 
-    (qNa.length) * 8 + "%";
+    (qNa.length) * 8.2 + "%";
 };
 function updateProgress() { // Loopar igenom list-elementen i progressbaren och lägger till/tar bort en class beroende på vilken fråga questionCounter är på.
+    steps = document.querySelectorAll(".step");
     steps.forEach((step, i) => {
         if (i < (questionCounter+1)) {
           step.classList.add("active");
@@ -405,17 +411,18 @@ function nextQuestion() { // Sparar användarens svar och byter till nästa frå
     };
 };    
 function startQuiz(userchoice) { // Startar Quizzet
-        quizContainer.style.height = "270px"; // Låser höjden på quizContainern under fråge-perioden, aningens behagligare.
-        qNa = userchoice; // Val av quiz array
-        centerButton.style.visibility= 'hidden';
-        leftButton.style.visibility= 'hidden';
-        rightButton.style.visibility='hidden';
-        buildQuiz(qNa[questionCounter],questionCounter); // Bygger första frågan
-        createProgressBar(qNa); //Bygger progressbaren initial
-        updateProgress(); //Uppdaterar
-        centerButton.textContent = "Rätta" ; // Byter text i knapparna då elementen återanvänds genom hela quizzet
-        leftButton.textContent = "Tidigare fråga";
-        rightButton.textContent ="Nästa fråga";
+    
+    quizContainer.style.height = "248px"; // Låser höjden på quizContainern under fråge-perioden, aningens behagligare.
+    qNa = userchoice; // Val av quiz array
+    createProgressBar(qNa); //Bygger progressbaren initial
+    centerButton.style.visibility= 'hidden';
+    leftButton.style.visibility= 'hidden';
+    rightButton.style.visibility='hidden';
+    buildQuiz(qNa[questionCounter],questionCounter); // Bygger första frågan
+    updateProgress(); //Uppdaterar
+    centerButton.textContent = "Rätta" ; // Byter text i knapparna då elementen återanvänds genom hela quizzet
+    leftButton.textContent = "Tidigare fråga";
+    rightButton.textContent ="Nästa fråga";
 };
 function previousQuestion() { // Byter till tidigare fråga.. vore fint att få in att gamla alternativen är ifyllda?
     centerButton.style.visibility = "hidden"; // Gömmer rätta-knappen
@@ -426,11 +433,11 @@ function previousQuestion() { // Byter till tidigare fråga.. vore fint att få 
         leftButton.style.visibility = 'hidden'; // Döjer knappen då det är första frågan
     };
 };
-// Variables
+// Variabler
 let chooseQuiz = true; // Har användaren valt en quiz? Behövs för knapplogiken
-let qNa = []; // Deklarerar qNa här för att kunna ge den ett värde inne i startQuiz-funktionen.
-let score = 0;  // 
-let questionCounter = 0;
+let qNa = []; // Deklarerar qNa här för att kunna ge den ett värde(quizArrayen) inne i startQuiz-funktionen.
+let score = 0;  // Deklarerar poängräkningsvariablen 
+let questionCounter = 0; 
 let savedAnswerArray = []; // Deklarerar en tom array för att spara svar i under quizzets gång.
 let toggleButton = document.querySelector("#toggleTheme");
 let centerButton = document.getElementById("centerButton");
@@ -439,12 +446,20 @@ let leftButton = document.getElementById("leftButton")
 let quizContainer =  document.querySelector("#quizContainer");
 let btnContainer = document.querySelector("#buttonContainer");
 let darkmode = document.querySelector("#dark");
+let steps = document.querySelectorAll(".step");
 let progressDiv = document.getElementById("progress");
 let progressBar = document.getElementById("progress-bar");
 let progressNum = document.getElementById("progress-num");
-let steps = document.querySelectorAll(".step");
 //Eventlisteners
-toggleButton.addEventListener("click", toggleTheme);
+toggleButton.addEventListener("click", toggleTheme); 
+leftButton.addEventListener("click", () => {
+    if (chooseQuiz) {
+        startQuiz(historyQuiz)
+        chooseQuiz = false;
+    } else {
+        previousQuestion();
+    }
+});
 centerButton.addEventListener("click", () => {
     if (chooseQuiz) {
         startQuiz(euQuiz)
@@ -465,13 +480,5 @@ rightButton.addEventListener("click", () => {
         chooseQuiz = false;
     } else {
         nextQuestion();
-    }
-});
-leftButton.addEventListener("click", () => {
-    if (chooseQuiz) {
-        startQuiz(historyQuiz)
-        chooseQuiz = false;
-    } else {
-        previousQuestion();
     }
 });

@@ -106,3 +106,14 @@ let qNa = [
         correctAnswer: "2"
     }
 ];
+
+<div id="progress">
+<div id="progress-bar">
+    <ul id="progress-num"></ul>
+</div>
+</div>
+let pBarDiv = document.createElement('div');
+pBarDiv.setAttribute('id', 'progress-bar');
+let progressUl = document.createElement('ul');
+    progressUl.setAttribute('id','progress-num')
+    progressBar.append(progressUl);
