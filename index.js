@@ -411,13 +411,12 @@ function nextQuestion() { // Sparar användarens svar och byter till nästa frå
     };
 };    
 function startQuiz(userchoice) { // Startar Quizzet
-    
     quizContainer.style.height = "248px"; // Låser höjden på quizContainern under fråge-perioden, aningens behagligare.
     qNa = userchoice; // Val av quiz array
     createProgressBar(qNa); //Bygger progressbaren initial
-    centerButton.style.visibility= 'hidden';
-    leftButton.style.visibility= 'hidden';
-    rightButton.style.visibility='hidden';
+    centerButton.style.visibility = 'hidden';
+    leftButton.style.visibility = 'hidden';
+    rightButton.style.visibility ='hidden';
     buildQuiz(qNa[questionCounter],questionCounter); // Bygger första frågan
     updateProgress(); //Uppdaterar
     centerButton.textContent = "Rätta" ; // Byter text i knapparna då elementen återanvänds genom hela quizzet
@@ -442,7 +441,7 @@ let savedAnswerArray = []; // Deklarerar en tom array för att spara svar i unde
 let toggleButton = document.querySelector("#toggleTheme");
 let centerButton = document.getElementById("centerButton");
 let rightButton = document.getElementById("rightButton");
-let leftButton = document.getElementById("leftButton")
+let leftButton = document.getElementById("leftButton");
 let quizContainer =  document.querySelector("#quizContainer");
 let btnContainer = document.querySelector("#buttonContainer");
 let darkmode = document.querySelector("#dark");
@@ -454,7 +453,7 @@ let progressNum = document.getElementById("progress-num");
 toggleButton.addEventListener("click", toggleTheme); 
 leftButton.addEventListener("click", () => {
     if (chooseQuiz) {
-        startQuiz(historyQuiz)
+        startQuiz(historyQuiz);
         chooseQuiz = false;
     } else {
         previousQuestion();
@@ -462,7 +461,7 @@ leftButton.addEventListener("click", () => {
 });
 centerButton.addEventListener("click", () => {
     if (chooseQuiz) {
-        startQuiz(euQuiz)
+        startQuiz(euQuiz);
         chooseQuiz = false;
     } else if (questionCounter === (qNa.length)){
         location.reload();
@@ -480,5 +479,5 @@ rightButton.addEventListener("click", () => {
         chooseQuiz = false;
     } else {
         nextQuestion();
-    }
+    };
 });
