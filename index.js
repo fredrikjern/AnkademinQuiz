@@ -52,7 +52,7 @@ let historyQuiz = [
         correctAnswer: ["2"]
     },
     {
-        questions: "Vilka var Winston Churchills favorit drycker?",
+        questions: "Vilka var Winston Churchills favoritdrycker?",
         answers: {
             1: "Whisky",
             2: "Champagne",
@@ -68,7 +68,7 @@ let historyQuiz = [
             1: "Alexander den store",
             2: "Julius Ceasar",
             3: "Ghengis Khan",
-            4: "Napoleon"
+            4: "Napoleon Bonaparte"
         },
         type: "radio",
         correctAnswer: ["3"]
@@ -100,7 +100,7 @@ let historyQuiz = [
         answers: {
             1: "Muhammed Ali",
             2: "Winston Churchill",
-            3: "Dwight Eisenhover",
+            3: "Dwight Eisenhower",
             4: "Ed Sheeran"
         },
         type: "radio",
@@ -263,7 +263,7 @@ function updateProgress() { // Loopar igenom list-elementen i progressbaren och 
         }
       });
 };
-function toggleTheme() { // Byter ut CSS filen i index.html
+function toggleTheme() { // Byter ut CSS filen i index.html. Borde gjorts annorlunda, blir orimligt mycket CSS efter en sida är stylad. Ideér: Lägga till ta bort klasser med darkmode(likt updateProgress) / en function som utför massa style... (lägga till ta bort klasser blir nog minst kod)
     if (theme.getAttribute('href') == 'lightmode.css') {
         theme.setAttribute('href', 'darkmode.css')
     } else {
@@ -362,10 +362,10 @@ function correctTheQuiz() { // Rättar svars-arrayen och skriver ut resultatet i
     quizContainer.style.height = "auto"; // Sidan behöver vara längre än under frågedelen
     progressDiv.innerHTML = ""; // Tar bort progress-baren från resultat-sidan
     resultOutput = [];
-    resultOutput.push(`<div class='grade' id="grade"></div>`); // Skapar en div högst upp i quizContainer där betyget kan presenteras efter rättningen
+    resultOutput.push(`<div class='grade' id="grade"></div>`); // Skapar en div högst upp i quizContainer där betyget kan presenteras efter rättningen. Här hade en createelemet+insertbefore varit lämplig
     savedAnswerArray.forEach((answer, questionNumber) => {
         currentUserAnswer = [];
-            answer.forEach((alternative) => { // Loopar ut användarens svar på frågan, la den ovan då den används om svaret är rätt eller fel
+            answer.forEach((alternative) => { // Loopar ut användarens svar på frågan
                 currentUserAnswer.push(` ${qNa[questionNumber].answers[alternative]} `)
             });
         if ((JSON.stringify(answer)) === (JSON.stringify(qNa[questionNumber].correctAnswer))) { // Jämför svaren som strängar då JS inte kunde jämföra 2 arays direkt, finns definitivt avsevärt bättre metoder. 
@@ -384,7 +384,6 @@ function correctTheQuiz() { // Rättar svars-arrayen och skriver ut resultatet i
                 `<div class='wrong'>Fråga ${(questionNumber + 1)}: ${qNa[questionNumber].questions} Fel svar!</div>
                 <div class ="resultAnswer"> Ditt svar: ${currentUserAnswer} <br>
                 <b>Rätt svar:</b> ${currentCorrectAnswer} </div>`);
-            quizContainer.style.height = "auto"; 
             quizContainer.innerHTML = resultOutput.join(''); 
             };                            
     });
@@ -399,9 +398,9 @@ function saveCurrentAnswer() { // Sparar svaret på nuvarandra fråga i en Array
     savedAnswerArray[questionCounter] = answersChecked; // Sparar i en array
 };
 function nextQuestion() { // Sparar användarens svar och byter till nästa fråga i DOM:en
-    rightButton.style.visibility = "hidden"; //Gömmer nästaknappen
+    rightButton.style.visibility = "hidden"; //Gömmer nästaknappen så användaren behöver fylla i ett svar för att komma vidare från nästa fråga
     saveCurrentAnswer(); // Sparar svaret
-    questionCounter++; // ökar countern
+    questionCounter++; // ökar frågeräknaren
     updateProgress();   // Uppdaterar progressbaren med nya questionCountern
     if(questionCounter === 1){ // Visar "tidigareknappen" vid fråga 2
         leftButton.style.visibility = "visible";        
@@ -411,14 +410,14 @@ function nextQuestion() { // Sparar användarens svar och byter till nästa frå
     };
 };    
 function startQuiz(userchoice) { // Startar Quizzet
-    quizContainer.style.height = "248px"; // Låser höjden på quizContainern under fråge-perioden, aningens behagligare.
+    quizContainer.style.height = "248px"; // Låser höjden på quizContainern under fråge-perioden, aningens behagligare upplevelse när knapparna inte flyttar på sig.
     qNa = userchoice; // Val av quiz array
     createProgressBar(qNa); //Bygger progressbaren initial
+    updateProgress(); //Uppdaterar progressbaren (Fråga 1 -> 1 prick)
     centerButton.style.visibility = 'hidden';
     leftButton.style.visibility = 'hidden';
     rightButton.style.visibility ='hidden';
     buildQuiz(qNa[questionCounter],questionCounter); // Bygger första frågan
-    updateProgress(); //Uppdaterar
     centerButton.textContent = "Rätta" ; // Byter text i knapparna då elementen återanvänds genom hela quizzet
     leftButton.textContent = "Tidigare fråga";
     rightButton.textContent ="Nästa fråga";
@@ -450,7 +449,7 @@ let progressDiv = document.getElementById("progress");
 let progressBar = document.getElementById("progress-bar");
 let progressNum = document.getElementById("progress-num");
 //Eventlisteners
-toggleButton.addEventListener("click", toggleTheme); 
+toggleButton.addEventListener("change", toggleTheme); 
 leftButton.addEventListener("click", () => {
     if (chooseQuiz) {
         startQuiz(historyQuiz);
